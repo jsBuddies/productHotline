@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 import './App.css';
-import From from './components/form/Form';
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import classes from './components/form/Form.css';
 
 class App extends Component {
+  constructor(){
+    super();
+
+    this.state ={
+
+    }
+  }
+
+  adminPage = () => {
+    this.props.history.push({ pathname: '/admin/form'})
+  }
+
   render() {
     return (
-      <div className="App">
-        hellowww
-        <From />
-      </div>
+      <React.Fragment>
+        hellooooo jackieeee
+
+        <button onClick={this.adminPage}>admin page</button>
+      </React.Fragment>
     );
   }
 }
