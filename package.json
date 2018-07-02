@@ -14,5 +14,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "base": "^3.0.0",
+    "re-base": "^3.2.3"
   }
 }

@@ -6,6 +6,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import LoginButton from './components/LoginButton';
 import ProductGrid from './components/ProductGrid/ProductGrid';
 import ProductSingle from './components/ProductSingle/ProductSingle';
+import testProducts from './testProducts';
 
 const config = {
   apiKey: "AIzaSyA3sIWuCGhRnsMM2uxTlOIZ8RDSk1oS4mo",
@@ -25,63 +26,25 @@ class App extends Component {
     this.state = {
       currentUser: '',
       currentUserId: '',
+      currentUserRole: '',
       loggedIn: false,
-      testProducts: [
-        {
-          brand: 'Apple',
-          name: 'iPhone X', 
-          price: '$1099', 
-          link: 'https://www.apple.com/shop/buy-iphone/iphone-x', 
-          imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone/x/iphone-x-select-2017',
-          camera: '12MP',
-          battery: 'Built-in rechargeable lithium‑ion battery',
-          weight: '6.14 ounces',
-          size: '5.65\"'
-        },
-        {
-          brand: 'Apple',
-          name: 'iPhone 8',
-          price: '$899',
-          link: 'https://www.apple.com/shop/buy-iphone/iphone-8',
-          imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone8/select/iphone8-select-2018'
-        },
-        {
-          brand: 'Apple',
-          name: 'iPhone 7',
-          price: '$799',
-          link: 'https://www.apple.com/shop/buy-iphone/iphone-7',
-          imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone7/plus/iphone7-plus-select-2016'
-        },
-        {
-          brand: 'Apple',
-          name: 'iPhone 6S',
-          price: '$699',
-          link: 'https://www.apple.com/shop/buy-iphone/iphone6s',
-          imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone6sp/silver/iphone6sp-silver-select'
-        },
-        {
-          brand: 'Samsung',
-          name: 'Galaxy J3 Prime',
-          price: '$199.99',
-          link: 'https://www.samsung.com/ca/smartphones/galaxy-j3-prime-sm-j327/',
-          imageLink: '//images.samsung.com/is/image/samsung/ca-galaxy-j3-prime-sm-j327-sm-j327wzkaxac-81658228?$PD_GALLERY_L_JPG$'
-        },
-        {
-          brand: 'Samsung',
-          name: 'Galaxy S9',
-          price: '$959.99',
-          link: 'https://www.samsung.com/ca/smartphones/galaxy-s9/shop/',
-          imageLink: '//image.samsung.com/ca/smartphones/galaxy-s9/shop/buyingtool/product/product_galaxys9_titaniumgray2_01.png'
-        }
-      ]
+      products: {}
     };
 
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
   }
 
   componentDidMount() {
-    this.dbRef = firebase.database().ref("users");
+    this.usersDbRef = firebase.database().ref("users");
+    this.productsDbRef = firebase.database().ref('products');
 
+    this.productsDbRef.on("value", snapshot => {
+        const savedProducts = snapshot.val();
+        this.setState({
+          products: savedProducts
+        })
+    })
+    
     firebase.auth().onAuthStateChanged(user => {
       if (user !== null) {
         let dbRefUser = firebase.database().ref("users/" + user.uid);
@@ -94,7 +57,8 @@ class App extends Component {
             this.setState({
               loggedIn: true,
               currentUser: loggedInUser,
-              currentUserId: loggedInUser.userId
+              currentUserId: loggedInUser.userId,
+              currentUserRole: loggedInUser.userRole
             });
             this.dbRefUser = dbRefUser;
           } else {
@@ -112,7 +76,7 @@ class App extends Component {
           }
         });
       } else {
-        this.dbRef.off("value");
+        this.usersDbRef.off("value");
         this.setState({
           loggedIn: false,
           currentUser: null
@@ -124,6 +88,15 @@ class App extends Component {
   adminPage = () => {
     this.props.history.push({ pathname: "/admin/form" });
   };
+
+  getTestProducts = () => {
+    console.log(testProducts);
+
+    this.setState({
+      products: testProducts
+    })
+
+  }
   
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -143,14 +116,13 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <React.Fragment>
+    return <React.Fragment>
         <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
         <button onClick={this.adminPage}>admin page</button>
-        <ProductGrid products={this.state.testProducts} />
-        <ProductSingle product={this.state.testProducts[0]} />
-      </React.Fragment>
-    );
+        <button onClick={this.getTestProducts}>Load Sample Products</button>
+        <ProductGrid products={this.state.products} />
+        {this.state.currentUserRole === 'admin' && <ProductSingle product={this.state.products.item1} />}
+      </React.Fragment>;
   }
 }
 
