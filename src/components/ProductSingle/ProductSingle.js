@@ -12,10 +12,10 @@ const ProductSingle = (props) => {
                 <p className="product-single__price">{props.product.price}</p>
                 <div className="product-single__details__specs">
                     <ul>
-                        <li>Battery: {props.product.battery}</li>
-                        <li>Camera: {props.product.camera}</li>
-                        <li>Size: {props.product.size}</li>
-                        <li>Weight: {props.product.weight}</li>
+                        {"battery" in props.product && props.product.battery.length > 0 ? <li>Battery: {props.product.battery}</li> : null}
+                        {"camera" in props.product && props.product.camera.length > 0 ? <li>Camera: {props.product.camera}</li> : null}
+                        {"size" in props.product && props.product.size.length > 0 ? <li>Size: {props.product.size}</li> : null}
+                        {"weight" in props.product && props.product.weight.length > 0 ? <li>Weight: {props.product.weight}</li> : null}
                     </ul>
                 </div>
             </div>

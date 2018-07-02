@@ -26,13 +26,17 @@ class App extends Component {
       currentUser: '',
       currentUserId: '',
       loggedIn: false,
-      products: [
+      testProducts: [
         {
           brand: 'Apple',
           name: 'iPhone X', 
           price: '$1099', 
           link: 'https://www.apple.com/shop/buy-iphone/iphone-x', 
-          imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone/x/iphone-x-select-2017'
+          imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone/x/iphone-x-select-2017',
+          camera: '12MP',
+          battery: 'Built-in rechargeable lithium‑ion battery',
+          weight: '6.14 ounces',
+          size: '5.65\"'
         },
         {
           brand: 'Apple',
@@ -69,18 +73,7 @@ class App extends Component {
           link: 'https://www.samsung.com/ca/smartphones/galaxy-s9/shop/',
           imageLink: '//image.samsung.com/ca/smartphones/galaxy-s9/shop/buyingtool/product/product_galaxys9_titaniumgray2_01.png'
         }
-      ],
-      testProduct: {
-        brand: 'Apple',
-        name: 'iPhone X',
-        price: '$1099',
-        link: 'https://www.apple.com/shop/buy-iphone/iphone-x',
-        imageLink: 'https://store.storeimages.cdn-apple.com/4981/as-images.apple.com/is/image/AppleInc/aos/published/images/i/ph/iphone/x/iphone-x-select-2017',
-        camera: '12MP',
-        battery: 'Built-in rechargeable lithium‑ion battery',
-        weight: '6.14 ounces',
-        size: '5.65\"'
-      }
+      ]
     };
 
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
@@ -154,8 +147,8 @@ class App extends Component {
       <React.Fragment>
         <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
         <button onClick={this.adminPage}>admin page</button>
-        <ProductGrid products={this.state.products} />
-        <ProductSingle product={this.state.testProduct} />
+        <ProductGrid products={this.state.testProducts} />
+        <ProductSingle product={this.state.testProducts[0]} />
       </React.Fragment>
     );
   }
