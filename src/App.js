@@ -96,7 +96,6 @@ class App extends Component {
   loadTestProducts = () => {
     Object.keys(testProducts).map((key) => {
       let dbRef = firebase.database().ref(`products/${key}`);
-      console.log(testProducts[key]);
       dbRef.set(testProducts[key]);
     })
   }
@@ -132,7 +131,7 @@ class App extends Component {
         <button onClick={this.adminPage}>admin page</button>
         {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
         <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
-        {this.state.currentUserRole === 'admin' && <ProductSingle productId={'item1'} />}
+        <ProductSingle productId={'item1'} />
       </React.Fragment>;
   }
 }

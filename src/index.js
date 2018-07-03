@@ -4,5 +4,5 @@ import './index.css';
 import Router from './components/Router';
 import App from './App';
 
-render(<App />, document.getElementById('root'));
-// render(<Router />, document.getElementById('root'));
+// render(<App />, document.getElementById('root'));
+render(<Router />, document.getElementById('root'));
