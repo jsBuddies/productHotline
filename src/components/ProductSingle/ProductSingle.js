@@ -11,7 +11,8 @@ class ProductSingle extends React.Component {
     }
 
     componentDidMount() {
-        this.productDbRef = firebase.database().ref(`products/${this.props.productId}`);
+        const productId = this.props.match.params.productId;
+        this.productDbRef = firebase.database().ref(`products/${productId}`);
         this.productDbRef.on("value", snapshot => {
             const product = snapshot.val();
             this.setState({

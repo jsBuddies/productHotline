@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
 import './App.css';
-import { BrowserRouter, Route, Switch } from "react-router-dom";
-// import classes from './components/form/Form.css';
+import { BrowserRouter, Route, Switch, Link, NavLink } from "react-router-dom";
+import Form from './components/form/Form';
 import LoginButton from './components/LoginButton';
 import ProductGrid from './components/ProductGrid/ProductGrid';
 import ProductSingle from './components/ProductSingle/ProductSingle';
 import testProducts from './testProducts';
+import ImageUpload from './components/ImageUpload';
 
 const config = {
   apiKey: "AIzaSyA3sIWuCGhRnsMM2uxTlOIZ8RDSk1oS4mo",
@@ -30,12 +31,16 @@ class App extends Component {
       loggedIn: false,
       products: {}
     };
-
+    
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
 
-  componentDidMount() {
+  adminPage = () => {
+    this.props.history.push("/admin/form");
+  }
+  
+   componentDidMount() {
     this.usersDbRef = firebase.database().ref("users");
     this.productsDbRef = firebase.database().ref('products');
 
@@ -126,14 +131,28 @@ class App extends Component {
   }
 
   render() {
-    return <React.Fragment>
+    const FormContainer = (props) => {
+      return (
+        <Form 
+          submit={this.submitHandler}
+        />
+      )
+    }
+    return <React.Fragment>          
         <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
         <button onClick={this.adminPage}>admin page</button>
         {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
+        <ImageUpload />
         <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
-        <ProductSingle productId={'item1'} />
+        
+      <BrowserRouter>
+      
+          {/* <Route exact path="/" component={App} /> */}
+          <Route path="/admin/form" component={Form} />    
+      </BrowserRouter>
       </React.Fragment>;
   }
+
 }
 
 export default App;
