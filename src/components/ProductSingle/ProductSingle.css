@@ -1,0 +1,12 @@
+.product-single {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+.product-single__image {
+    display: block;
+    height: 600px;
+    object-fit: contain;
+    object-position: 50% 50%;
+    width: 100%;
+}
