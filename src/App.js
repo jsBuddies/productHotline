@@ -32,6 +32,7 @@ class App extends Component {
     };
 
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidMount() {
@@ -92,9 +93,11 @@ class App extends Component {
     this.props.history.push({ pathname: "/admin/form" });
   };
 
-  getTestProducts = () => {
-    this.setState({
-      products: testProducts
+  loadTestProducts = () => {
+    Object.keys(testProducts).map((key) => {
+      let dbRef = firebase.database().ref(`products/${key}`);
+      console.log(testProducts[key]);
+      dbRef.set(testProducts[key]);
     })
   }
   
@@ -115,11 +118,20 @@ class App extends Component {
     firebase.auth().signOut();
   }
 
+  removeItem(keyToRemove) {
+    console.log(keyToRemove);
+    firebase
+      .database()
+      .ref(`products/${keyToRemove}`)
+      .remove();
+  }
+
   render() {
     return <React.Fragment>
         <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
         <button onClick={this.adminPage}>admin page</button>
-        <ProductGrid products={this.state.products} />
+        {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
+        <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
         {this.state.currentUserRole === 'admin' && <ProductSingle productId={'item1'} />}
       </React.Fragment>;
   }

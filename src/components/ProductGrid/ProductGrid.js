@@ -6,7 +6,7 @@ const ProductGrid = (props) => {
         <div className="product-grid__container">
         <h2 className="product-grid__headline">Products</h2>
             <ul className="product-grid">
-                    {typeof(props.products) !== 'undefined' ? Object.keys(props.products).map((key) => {
+                    {props.products !== null ? Object.keys(props.products).map((key) => {
                     return (
                     <li className="product" key={key} index={key}>
                         <a href={props.products[key].link} className="product__image__link">
@@ -18,6 +18,7 @@ const ProductGrid = (props) => {
                             </a>
                         </h3>
                         <p className="product__price">${props.products[key].price}</p>
+                        {props.currentUserRole === 'admin' && <button onClick={() => props.removeItem(key)}>Remove</button>}
                     </li>
                     )
                 }) : null}
