@@ -23,7 +23,7 @@ class ProductSingle extends React.Component {
     render() {
         return (
             <React.Fragment>
-                {typeof this.state.product !== 'undefined' && <div className="product-single">
+                {this.state.product !== null && <div className="product-single">
                     <img className="product-single__image" src={this.state.product.imageLink} alt={this.state.product.name} />
                     <div className="product-single__details">
                         <h2 className="product-single__headline">
