@@ -70,7 +70,8 @@ class App extends Component {
             this.setState({
               loggedIn: true,
               currentUser: loggedInUser,
-              currentUserId: loggedInUser.userId
+              currentUserId: loggedInUser.userId,
+              currentUserRole: loggedInUser.userRole
             });
             dbRefUser.set(loggedInUser);
           }
@@ -79,7 +80,9 @@ class App extends Component {
         this.usersDbRef.off("value");
         this.setState({
           loggedIn: false,
-          currentUser: null
+          currentUser: null,
+          currentUserId: '',
+          currentUserRole: ''
         });
       }
     });
@@ -90,12 +93,9 @@ class App extends Component {
   };
 
   getTestProducts = () => {
-    console.log(testProducts);
-
     this.setState({
       products: testProducts
     })
-
   }
   
   loginWithGoogle() {
@@ -119,9 +119,8 @@ class App extends Component {
     return <React.Fragment>
         <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
         <button onClick={this.adminPage}>admin page</button>
-        <button onClick={this.getTestProducts}>Load Sample Products</button>
         <ProductGrid products={this.state.products} />
-        {this.state.currentUserRole === 'admin' && <ProductSingle product={this.state.products.item1} />}
+        {this.state.currentUserRole === 'admin' && <ProductSingle productId={'item1'} />}
       </React.Fragment>;
   }
 }
