@@ -9,11 +9,11 @@ const ProductGrid = (props) => {
                     {props.products !== null ? Object.keys(props.products).map((key) => {
                     return (
                     <li className="product" key={key} index={key}>
-                        <a href={props.products[key].link} className="product__image__link">
+                        <a href={`/products/${key}`} className="product__image__link">
                             <img className="product__image" src={props.products[key].imageLink} alt={props.products[key].name} />
                         </a>
                         <h3 className="product__headline">
-                            <a className="product__name__link" href={props.products[key].link}>
+                            <a className="product__name__link" href={`/products/${key}`}>
                                 <span className="product__name__brand">{props.products[key].brand}</span> <span className="product__name">{props.products[key].name}</span>
                             </a>
                         </h3>
