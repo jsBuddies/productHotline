@@ -39,13 +39,7 @@ class App extends Component {
     this.props.history.push("/admin/form");
   }
 
-  submitHandler = (e) => {
-    e.preventDefault();
-    console.log(this.state)
-    // this.setState({
-    //   formInputs: this.state
-    // })
-  }
+
 
   
    componentDidMount() {
@@ -148,7 +142,6 @@ class App extends Component {
       )
     }
     return <React.Fragment>
-        <Form submit={this.submitHandler} />
           
         <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
         <button onClick={this.adminPage}>admin page</button>
@@ -156,12 +149,12 @@ class App extends Component {
         <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
         {this.state.currentUserRole === 'admin' && <ProductSingle productId={'item1'} />}
         
-      <BrowserRouter>
+        <BrowserRouter>
+        
+            {/* <Route exact path="/" component={App} /> */}
+            <Route path="/admin/form" render={(props)=><Form />} />
       
-          {/* <Route exact path="/" component={App} /> */}
-          <Route path="/admin/form" render={(props)=><Form submit={this.submitHandler} {...props} string={'text'} />} />
-     
-      </BrowserRouter>
+        </BrowserRouter>
       </React.Fragment>;
   }
 
