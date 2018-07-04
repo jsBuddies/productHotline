@@ -2,6 +2,7 @@ import React from 'react';
 
 import firebase from 'firebase';
 
+
 class EditForm extends React.Component {
   constructor() {
     super();
@@ -102,7 +103,6 @@ class EditForm extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <h3>Edit item</h3>
         <form className="form" action="" onSubmit={this.submitHandler}>
           <div>
             <label className="form__label" htmlFor="name">

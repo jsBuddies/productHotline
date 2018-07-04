@@ -1,0 +1,53 @@
+@import 'SharedStyles.scss';
+
+.productSingleContainer {
+  background: $highlight-color-light;
+}
+
+.product-single {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap: 30px;
+}
+
+.product-single__headline {
+  color: $highlight-color-primary;
+  font-size: 5rem;
+}
+
+.product-single__details__specs {
+  ul {
+    list-style: none;
+    span{
+      display: inline-block;
+    }
+  }
+  .label{
+    width: 80px;
+    color: $dark-grey;
+  }
+
+}
+
+.product-single__image {
+    display: block;
+    height: 600px;
+    object-fit: contain;
+    object-position: 50% 50%;
+    width: 100%;
+}
+
+.product-single__price {
+  font-size: 5rem;
+  font-weight: $bold;
+
+  .priceTag{
+    font-size: 3.5rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .product-single {
+
+  }
+}

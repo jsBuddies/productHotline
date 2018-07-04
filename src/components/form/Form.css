@@ -1,6 +1,19 @@
+/* colors */
+/* type */
+/* misc variables */
 form {
-  display: flex;
-  flex-flow: column;
-
-  align-items: center;
-}
+  padding: 50px 0;
+  font-size: 2.5rem; }
+  form .form__label {
+    display: inline-block;
+    width: 120px; }
+  form .form__input {
+    padding: 5px; }
+  form button {
+    margin: 50px;
+    font-size: 4rem;
+    padding: 10px 20px;
+    border-radius: 10px;
+    border: none;
+    color: #ffffff;
+    background: #fe688b; }

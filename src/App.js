@@ -173,10 +173,12 @@ class App extends Component {
 
 
         <main>
-          {this.state.adminFormVisible === true && <Route path="/" exact component={Form} />}
-          {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
-          <Route path="/" exact render={() => <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} editItem={this.editItem} />} />
-          <Route path="/products/:productId" component={ProductSingle} />
+          <div className="wrapper">
+            {this.state.adminFormVisible === true && <Route path="/" exact component={Form} />}
+            {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
+            <Route path="/" exact render={() => <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} editItem={this.editItem} />} />
+            <Route path="/products/:productId" component={ProductSingle} />
+          </div>
         </main>
         <Footer />
       </div>
