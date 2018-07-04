@@ -1,0 +1,27 @@
+/* colors */
+$black: #181b31;
+$dark-grey: #636572;
+$body-color: $black;
+$button-color: #3d59e8;
+$headline-color: $black;
+$highlight-color-light: #dde1f8;
+$highlight-color-primary: #fe688b;
+$highlight-color-secondary: #60eacb;
+$highlight-color-secondary-dark: #00a380;
+$highlight-color-tertiary: #f9b851;
+$link-color: $highlight-color-primary;
+$white: #ffffff;
+
+/* type */
+$body-font: 'Libre Franklin', sans-serif;
+$bold: 700;
+$regular: 400;
+
+/* misc variables */
+$transition: all 0.5s ease-in-out;
+
+@mixin unstyledList {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
