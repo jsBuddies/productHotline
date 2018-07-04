@@ -8,7 +8,7 @@ const ProductGrid = (props) => {
             <ul className="product-grid">
                     {props.products !== null ? Object.keys(props.products).sort().reverse().map((key) => {
                     return (
-                    <li className="product" key={key} index={key} onClick={goToDetails} >
+                    <li className="product" key={key} index={key} >
                         <a href={`/products/${key}`} className="product__image__link">
                             <img className="product__image" src={props.products[key].imageLink} alt={props.products[key].name} />
                         </a>
