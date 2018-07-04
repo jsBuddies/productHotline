@@ -37,8 +37,6 @@ class EditForm extends React.Component {
     });
   }
 
-
-
     componentDidUpdate(prevProps) {
         const productId = this.props.keyToEdit;
         if (this.props.keyToEdit !== prevProps.keyToEdit) {
@@ -64,7 +62,6 @@ class EditForm extends React.Component {
             });
         }
     }
-
 
 
   handleChange = event => {
