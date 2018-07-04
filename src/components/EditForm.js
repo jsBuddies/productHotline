@@ -24,46 +24,46 @@ class EditForm extends React.Component {
     this.productDbRef.on("value", snapshot => {
       const product = snapshot.val();
       this.setState({
-          name: product.name,
-          price: product.price,
-          brand: product.brand,
-          camera: product.camera,
-          battery: product.battery,
-          weight: product.weight,
-          size: product.size,
-          imageLink: product.imageLink,
-          productId
+        name: product.name,
+        price: product.price,
+        brand: product.brand,
+        camera: product.camera,
+        battery: product.battery,
+        weight: product.weight,
+        size: product.size,
+        imageLink: product.imageLink,
+        productId
       });
     });
   }
 
 
 
-    componentDidUpdate(prevProps) {
-        const productId = this.props.keyToEdit;
-        if (this.props.keyToEdit !== prevProps.keyToEdit) {
-            this.setState({
-                productId: this.props.keyToEdit
-            }, () => {
-                this.productDbRef = firebase.database().ref(`products/${productId}`);
-                this.productDbRef.on("value", snapshot => {
-                    const product = snapshot.val();
-                    this.setState({
-                        name: product.name,
-                        price: product.price,
-                        brand: product.brand,
-                        camera: product.camera,
-                        battery: product.battery,
-                        weight: product.weight,
-                        size: product.size,
-                        imageLink: product.imageLink,
-                        productId
-                    });
-                });
+  componentDidUpdate(prevProps) {
+    const productId = this.props.keyToEdit;
+    if (this.props.keyToEdit !== prevProps.keyToEdit) {
+      this.setState({
+        productId: this.props.keyToEdit
+      }, () => {
+        this.productDbRef = firebase.database().ref(`products/${productId}`);
+        this.productDbRef.on("value", snapshot => {
+          const product = snapshot.val();
+          this.setState({
+            name: product.name,
+            price: product.price,
+            brand: product.brand,
+            camera: product.camera,
+            battery: product.battery,
+            weight: product.weight,
+            size: product.size,
+            imageLink: product.imageLink,
+            productId
+          });
+        });
 
-            });
-        }
+      });
     }
+  }
 
 
 
@@ -104,7 +104,7 @@ class EditForm extends React.Component {
   render() {
     return (
       <React.Fragment>
-          <h3>Edit item</h3>
+        <h3>Edit item</h3>
         <form className="form" action="" onSubmit={this.submitHandler}>
           <div>
             <label className="form__label" htmlFor="name">
