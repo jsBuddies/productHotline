@@ -19,6 +19,7 @@ const ProductGrid = (props) => {
                         </h3>
                         <p className="product__price">${props.products[key].price}</p>
                         {props.currentUserRole === 'admin' && <button onClick={() => props.removeItem(key)}>Remove</button>}
+                        {props.currentUserRole === 'admin' && <button onClick={() => props.editItem(key)}>Edit</button>}
                     </li>
                     )
                 }) : null}
