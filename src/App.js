@@ -20,7 +20,7 @@ const config = {
   messagingSenderId: "690418395994"
 };
 
-firebase.initializeApp(config);  
+firebase.initializeApp(config);
 
 class App extends Component {
   constructor() {
@@ -37,25 +37,25 @@ class App extends Component {
       loggedIn: false,
       products: {}
     };
-    
+
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
     this.closeEditForm = this.closeEditForm.bind(this);
     this.editItem = this.editItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
 
-  
-   componentDidMount() {
+
+  componentDidMount() {
     this.usersDbRef = firebase.database().ref("users");
     this.productsDbRef = firebase.database().ref('products').orderByKey();
 
     this.productsDbRef.on("value", snapshot => {
-        const savedProducts = snapshot.val();
-        this.setState({
-          products: savedProducts
-        })
+      const savedProducts = snapshot.val();
+      this.setState({
+        products: savedProducts
+      })
     })
-    
+
     firebase.auth().onAuthStateChanged(user => {
       if (user !== null) {
         let dbRefUser = firebase.database().ref("users/" + user.uid);
@@ -129,7 +129,7 @@ class App extends Component {
       dbRef.set(testProducts[key]);
     })
   }
-  
+
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -158,18 +158,18 @@ class App extends Component {
   render() {
     const FormContainer = (props) => {
       return (
-        <Form 
+        <Form
           submit={this.submitHandler}
         />
       )
     }
 
-return <BrowserRouter>
-    <div>
-      <Header />
-      <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-      {this.state.currentUserRole === 'admin' && <button onClick={this.adminPage}>{this.state.adminButtonText}</button>}
-      {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
+    return <BrowserRouter>
+      <div>
+        <Header />
+        <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
+        {this.state.currentUserRole === 'admin' && <button onClick={this.adminPage}>{this.state.adminButtonText}</button>}
+        {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
 
 
         <main>
@@ -178,8 +178,8 @@ return <BrowserRouter>
           <Route path="/" exact render={() => <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} editItem={this.editItem} />} />
           <Route path="/products/:productId" component={ProductSingle} />
         </main>
-      <Footer />
-    </div>
+        <Footer />
+      </div>
     </BrowserRouter>;
 
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 
-class Form extends React.Component{
+class Form extends React.Component {
   constructor() {
     super();
     this.imageLink = React.createRef();
@@ -25,7 +25,7 @@ class Form extends React.Component{
   }
 
   submitHandler = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
     const ref = firebase.storage().ref(`phone-phax`);
     const file = document.querySelector('#imageLink').files[0];
     const name = (+new Date()) + '-' + file.name;
@@ -70,9 +70,9 @@ class Form extends React.Component{
   }
 
 
-  render(){
+  render() {
     return <React.Fragment>
-        <form className="form" action="" onSubmit={this.submitHandler}>
+      <form className="form" action="" onSubmit={this.submitHandler}>
         <div>
           <label className="form__label" htmlFor="name">Name</label>
           <input className="form__input" type="text" placeholder="Name" name="name" value={this.state.name} required onChange={this.handleChange} />
@@ -108,8 +108,8 @@ class Form extends React.Component{
         <div>
           <button>Submit</button>
         </div>
-        </form>
-      </React.Fragment>;
+      </form>
+    </React.Fragment>;
   }
 }
 
