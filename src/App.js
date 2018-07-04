@@ -18,7 +18,7 @@ const config = {
   messagingSenderId: "690418395994"
 };
 
-firebase.initializeApp(config);  
+firebase.initializeApp(config);
 
 class App extends Component {
   constructor() {
@@ -31,7 +31,7 @@ class App extends Component {
       loggedIn: false,
       products: {}
     };
-    
+
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
@@ -39,24 +39,18 @@ class App extends Component {
   adminPage = () => {
     this.props.history.push("/admin/form");
   }
-<<<<<<< HEAD
 
-
-
-=======
->>>>>>> 298f2bfb0c5fddcd1c6cde4cd37bf7320717b1cf
-  
-   componentDidMount() {
+  componentDidMount() {
     this.usersDbRef = firebase.database().ref("users");
     this.productsDbRef = firebase.database().ref('products');
 
     this.productsDbRef.on("value", snapshot => {
-        const savedProducts = snapshot.val();
-        this.setState({
-          products: savedProducts
-        })
+      const savedProducts = snapshot.val();
+      this.setState({
+        products: savedProducts
+      })
     })
-    
+
     firebase.auth().onAuthStateChanged(user => {
       if (user !== null) {
         let dbRefUser = firebase.database().ref("users/" + user.uid);
@@ -100,9 +94,6 @@ class App extends Component {
     });
   }
 
-  adminPage = () => {
-    this.props.history.push({ pathname: "/admin/form" });
-  };
 
   loadTestProducts = () => {
     Object.keys(testProducts).map((key) => {
@@ -110,7 +101,7 @@ class App extends Component {
       dbRef.set(testProducts[key]);
     })
   }
-  
+
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     firebase
@@ -139,36 +130,24 @@ class App extends Component {
   render() {
     const FormContainer = (props) => {
       return (
-        <Form 
+        <Form
           submit={this.submitHandler}
         />
       )
     }
-<<<<<<< HEAD
     return <React.Fragment>
-          
-=======
-    return <React.Fragment>          
->>>>>>> 298f2bfb0c5fddcd1c6cde4cd37bf7320717b1cf
-        <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-        <button onClick={this.adminPage}>admin page</button>
-        {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
-        <ImageUpload />
-        <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
-        
-        <BrowserRouter>
-        
-            {/* <Route exact path="/" component={App} /> */}
-            <Route path="/admin/form" render={(props)=><Form />} />
-      
-<<<<<<< HEAD
-        </BrowserRouter>
-=======
-          {/* <Route exact path="/" component={App} /> */}
-          <Route path="/admin/form" component={Form} />    
+      <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
+      <button onClick={this.adminPage}>admin page</button>
+      {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
+      <ImageUpload />
+      <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
+
+      <BrowserRouter>
+
+        {/* <Route exact path="/" component={App} /> */}
+        <Route path="/admin/form" component={Form} />
       </BrowserRouter>
->>>>>>> 298f2bfb0c5fddcd1c6cde4cd37bf7320717b1cf
-      </React.Fragment>;
+    </React.Fragment>;
   }
 
 }

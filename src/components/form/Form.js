@@ -32,30 +32,6 @@ class Form extends React.Component{
   }
 
   submitHandler = (e) => {
-<<<<<<< HEAD
-    e.preventDefault();
-    console.log('submit')
-
-  }
-
-
-
-  render(){
-    return (
-    <React.Fragment>
-      <form action="" onSubmit={this.submitHandler}>
-        <input type="text" placeholder="Name" name='name' value={this.state.name} required onChange={this.handleChange} />
-        <input type="text" placeholder='Price' name='price' value={this.state.price} required onChange={this.handleChange} />
-        <input type="text" placeholder='Brand' name='brand' value={this.state.brand} required onChange={this.handleChange} />
-        <input type="text" placeholder='Camera' name='camera' value={this.state.camera} onChange={this.handleChange} />
-        <input type="text" placeholder='Battery' name='battery' value={this.state.battery} onChange={this.handleChange} />
-        <input type="text" placeholder='Weight' name='weight' value={this.state.weight} onChange={this.handleChange} />
-        <input type="text" placeholder='Size' name='size' value={this.state.size} onChange={this.handleChange} />
-        <button>Submit</button>
-      </form>
-    </React.Fragment>
-    )
-=======
     e.preventDefault(); 
     const ref = firebase.storage().ref(`phone-phax`);
     const file = document.querySelector('#imageLink').files[0];
@@ -115,7 +91,6 @@ class Form extends React.Component{
           <button>Submit</button>
         </form>
       </React.Fragment>;
->>>>>>> 298f2bfb0c5fddcd1c6cde4cd37bf7320717b1cf
   }
 }
 
