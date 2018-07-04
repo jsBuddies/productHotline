@@ -76,14 +76,14 @@ class EditForm extends React.Component {
   submitHandler = e => {
     e.preventDefault();
         const product = {
-            battery: this.state.battery,
-            brand: this.state.brand,
-            camera: this.state.camera,
-            imageLink: this.state.imageLink,
-            name: this.state.name,
-            price: this.state.price,
-            size: this.state.size,
-            weight: this.state.weight
+            battery: this.state.battery || '',
+            brand: this.state.brand || '',
+            camera: this.state.camera || '',
+            imageLink: this.state.imageLink || '',
+            name: this.state.name || '',
+            price: this.state.price || '',
+            size: this.state.size || '',
+            weight: this.state.weight || ''
         };
         let dbRef = firebase.database().ref(`products/${this.state.productId}`);
         dbRef.set(product);
