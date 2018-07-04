@@ -142,8 +142,10 @@ img {
   width: 100%; }
 
 body {
-  font-size: 1.6rem;
-  margin: 0; }
+    font-family: 'Libre Franklin', sans-serif;
+    font-size: 1.6rem;
+    margin: 0;
+}
 
 button {
   background: transparent;

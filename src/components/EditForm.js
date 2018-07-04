@@ -60,11 +60,9 @@ class EditForm extends React.Component {
             productId
           });
         });
-
       });
     }
   }
-
 
 
   handleChange = event => {

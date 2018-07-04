@@ -1,11 +1,4 @@
 import React from 'react';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  browserHistory,
-  withRouter
-} from "react-router-dom";
 import firebase from 'firebase';
 
 class Form extends React.Component {
