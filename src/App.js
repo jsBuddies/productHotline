@@ -7,7 +7,8 @@ import LoginButton from './components/LoginButton';
 import ProductGrid from './components/ProductGrid/ProductGrid';
 import ProductSingle from './components/ProductSingle/ProductSingle';
 import testProducts from './testProducts';
-import ImageUpload from './components/ImageUpload';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 const config = {
   apiKey: "AIzaSyA3sIWuCGhRnsMM2uxTlOIZ8RDSk1oS4mo",
@@ -36,13 +37,10 @@ class App extends Component {
     this.removeItem = this.removeItem.bind(this);
   }
 
-  adminPage = () => {
-    this.props.history.push("/admin/form");
-  }
-
-  componentDidMount() {
+  
+   componentDidMount() {
     this.usersDbRef = firebase.database().ref("users");
-    this.productsDbRef = firebase.database().ref('products');
+    this.productsDbRef = firebase.database().ref('products').orderByKey();
 
     this.productsDbRef.on("value", snapshot => {
       const savedProducts = snapshot.val();
@@ -135,19 +133,24 @@ class App extends Component {
         />
       )
     }
-    return <React.Fragment>
+
+return <BrowserRouter>
+    <div>
+      <Header />
       <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-      <button onClick={this.adminPage}>admin page</button>
+      {this.state.currentUserRole === 'admin' && <button onClick={this.adminPage}>admin page</button>}
       {this.state.currentUserRole === 'admin' && <button onClick={this.loadTestProducts}>Load sample products</button>}
-      <ImageUpload />
-      <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />
 
-      <BrowserRouter>
 
-        {/* <Route exact path="/" component={App} /> */}
-        <Route path="/admin/form" component={Form} />
-      </BrowserRouter>
-    </React.Fragment>;
+        <main>
+          <Route path="/" exact render={() => <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} />} />
+          <Route path="/products/:productId" component={ProductSingle} />
+          <Route path="/admin/form" component={Form} />
+        </main>
+      <Footer />
+    </div>
+    </BrowserRouter>;
+
   }
 
 }

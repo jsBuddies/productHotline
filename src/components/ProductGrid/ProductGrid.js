@@ -1,16 +1,12 @@
 import React from 'react';
 import classes from './ProductGrid.css';
 
-const ProductGrid = (props) => {
-    const goToDetails = (e) => {
-        e.preventDefault();
-        console.log('go to details');
-    }
+const ProductGrid = (props) => {    
     return (
         <div className="product-grid__container">
         <h2 className="product-grid__headline">Products</h2>
             <ul className="product-grid">
-                    {props.products !== null ? Object.keys(props.products).map((key) => {
+                    {props.products !== null ? Object.keys(props.products).sort().reverse().map((key) => {
                     return (
                     <li className="product" key={key} index={key} onClick={goToDetails} >
                         <a href={`/products/${key}`} className="product__image__link">
