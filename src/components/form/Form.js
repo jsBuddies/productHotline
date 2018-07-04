@@ -47,14 +47,14 @@ class Form extends React.Component{
           imageLink: url
         }, () => {
           const product = {
-            battery: this.state.camera,
-            brand: this.state.price,
+            battery: this.state.battery,
+            brand: this.state.brand,
             camera: this.state.camera,
+            imageLink: this.state.imageLink,
             name: this.state.name,
             price: this.state.price,
             size: this.state.size,
-            weight: this.state.weight,
-            imageLink: this.state.imageLink
+            weight: this.state.weight
           }
           const productName = Date.now();
           let dbRef = firebase.database().ref(`products/${productName}`);
@@ -79,16 +79,42 @@ class Form extends React.Component{
 
   render(){
     return <React.Fragment>
-        <form action="" onSubmit={this.submitHandler}>
-          <input type="text" placeholder="Name" name="name" value={this.state.name} required onChange={this.handleChange} />
-          <input type="text" placeholder="Price" name="price" value={this.state.price} required onChange={this.handleChange} />
-          <input type="text" placeholder="Brand" name="brand" value={this.state.brand} required onChange={this.handleChange} />
-          <input type="text" placeholder="Camera" name="camera" value={this.state.camera} onChange={this.handleChange} />
-          <input type="text" placeholder="Battery" name="battery" value={this.state.battery} onChange={this.handleChange} />
-          <input type="text" placeholder="Weight" name="weight" value={this.state.weight} onChange={this.handleChange} />
-          <input type="text" placeholder="Size" name="size" value={this.state.size} onChange={this.handleChange} />
-          <input type="file" name="imageLink" id="imageLink" accept="images/*" ref={this.imageLink} />
+        <form className="form" action="" onSubmit={this.submitHandler}>
+        <div>
+          <label className="form__label" htmlFor="name">Name</label>
+          <input className="form__input" type="text" placeholder="Name" name="name" value={this.state.name} required onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="price">Price</label>
+          <input className="form__input" type="text" placeholder="Price" name="price" value={this.state.price} required onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="brand">Brand</label>
+          <input className="form__input" type="text" placeholder="Brand" name="brand" value={this.state.brand} required onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="camera">Camera</label>
+          <input className="form__input" type="text" placeholder="Camera" name="camera" value={this.state.camera} onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="battery">Battery</label>
+          <input className="form__input" type="text" placeholder="Battery" name="battery" value={this.state.battery} onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="weight">Weight</label>
+          <input className="form__input" type="text" placeholder="Weight" name="weight" value={this.state.weight} onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="size">Size</label>
+          <input className="form__input" type="text" placeholder="Size" name="size" value={this.state.size} onChange={this.handleChange} />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="imageLink">Image</label>
+          <input className="form__input" type="file" name="imageLink" id="imageLink" accept="images/*" ref={this.imageLink} />
+        </div>
+        <div>
           <button>Submit</button>
+        </div>
         </form>
       </React.Fragment>;
   }
