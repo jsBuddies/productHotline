@@ -1,23 +1,31 @@
 @import 'SharedStyles.scss';
 
-.form {
-  display: grid;
-  grid-column-gap: 50px;
-  grid-row-gap: 15px;
-  grid-template-columns: repeat(2, 1fr);
+.form {    
+    display: grid;
+    grid-row-gap: 15px;
+
+    @media screen and (min-width: 900px) {
+        grid-column-gap: 50px;
+        grid-template-columns: repeat(2, 1fr);
+  }
 
   &__button {
     background-color: darken($link-color, 5);
     border: 1px solid transparent;
     border-radius: 4px;
+    box-sizing: border-box;
     color: white;
     display: block;
     line-height: 1.4;
-    margin: 1.5rem auto 0;
+    margin: 0 auto;
     padding: 1.5rem;
     text-align: center;
     transition: $transition;
     width: 100%;
+    
+    @media screen and (min-width: 900px) {
+        margin-top: 1.5rem;
+    }
 
     &--secondary {
         background-color: white;
@@ -30,6 +38,18 @@
         border: 1px solid transparent;
         color: black;
     }
+  }
+
+  &__buttons {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-column-gap: 20px;
+      grid-row-gap: 30px;
+      grid-template-columns: repeat(2, 1fr);
+
+      @media screen and (min-width: 900px) {
+        grid-column-gap: 50px;
+      }
   }
 
   &__heading {

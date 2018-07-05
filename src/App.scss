@@ -57,7 +57,12 @@ header {
         &__link {
             color: white;
             text-decoration: none;
-        }
+            transition: $transition;
+
+            &:hover {
+                fill: $highlight-color-secondary;
+            }
+       }
     }
 }
 
@@ -67,11 +72,16 @@ main {
 
 .utility-nav {
     button {
-        border: none;
+        border-bottom: 2px solid transparent;
         color: $black;
         font-weight: 700;
         margin: 0 1.5rem;
+        transition: $transition;
 
+        &:hover {
+            border-bottom: 2px solid $highlight-color-secondary;
+        }
+ 
         &:last-of-type {
             margin-right: 0;
         }

@@ -2,23 +2,30 @@
 /* type */
 /* misc variables */
 .product-single {
-  display: grid;
-  grid-column-gap: 70px;
-  grid-template-columns: 1fr 2fr;
   margin-top: 5rem; }
+  @media screen and (min-width: 500px) {
+    .product-single {
+      display: grid;
+      grid-column-gap: 70px;
+      grid-template-columns: 1fr 2fr; } }
   .product-single__details {
     font-size: 2rem; }
     .product-single__details__label {
-      display: inline-block;
-      font-weight: 700;
-      width: 10rem; }
+      font-weight: 700; }
+      @media screen and (min-width: 900px) {
+        .product-single__details__label {
+          display: inline-block;
+          width: 10rem; } }
   .product-single__headline {
     margin: 0; }
   .product-single__image {
     display: block;
+    max-height: 50vh;
     object-fit: contain;
-    max-height: 70vh;
     width: 100%; }
+    @media screen and (min-width: 500px) {
+      .product-single__image {
+        max-height: 70vh; } }
   .product-single__name {
     display: block;
     font-size: 3rem;

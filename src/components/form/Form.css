@@ -3,21 +3,27 @@
 /* misc variables */
 .form {
   display: grid;
-  grid-column-gap: 50px;
-  grid-row-gap: 15px;
-  grid-template-columns: repeat(2, 1fr); }
+  grid-row-gap: 15px; }
+  @media screen and (min-width: 900px) {
+    .form {
+      grid-column-gap: 50px;
+      grid-template-columns: repeat(2, 1fr); } }
   .form__button {
     background-color: #fe4f78;
     border: 1px solid transparent;
     border-radius: 4px;
+    box-sizing: border-box;
     color: white;
     display: block;
     line-height: 1.4;
-    margin: 1.5rem auto 0;
+    margin: 0 auto;
     padding: 1.5rem;
     text-align: center;
     transition: all 0.5s ease-in-out;
     width: 100%; }
+    @media screen and (min-width: 900px) {
+      .form__button {
+        margin-top: 1.5rem; } }
     .form__button--secondary {
       background-color: white;
       border: 1px solid #fe4f78;
@@ -26,6 +32,15 @@
       background-color: #ffcdd9;
       border: 1px solid transparent;
       color: black; }
+  .form__buttons {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-column-gap: 20px;
+    grid-row-gap: 30px;
+    grid-template-columns: repeat(2, 1fr); }
+    @media screen and (min-width: 900px) {
+      .form__buttons {
+        grid-column-gap: 50px; } }
   .form__heading {
     margin-top: 0; }
   .form__item {

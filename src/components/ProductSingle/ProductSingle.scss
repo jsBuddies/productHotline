@@ -1,18 +1,24 @@
 @import 'SharedStyles.scss';
 
 .product-single {
-    display: grid;
-    grid-column-gap: 70px;
-    grid-template-columns: 1fr 2fr;
     margin-top: 5rem;
+
+    @media screen and (min-width: 500px) {
+        display: grid;
+        grid-column-gap: 70px;
+        grid-template-columns: 1fr 2fr;
+    }
 
     &__details {
         font-size: 2rem;
 
         &__label {
-            display: inline-block;
             font-weight: 700;
-            width: 10rem;
+
+            @media screen and (min-width: 900px) {
+                display: inline-block;
+                width: 10rem;
+            }
         }
     }
 
@@ -22,9 +28,14 @@
 
     &__image {
         display: block;
+        max-height: 50vh;
         object-fit: contain;
-        max-height: 70vh;
         width: 100%;
+
+        @media screen and (min-width: 500px) {
+            max-height: 70vh;
+
+        }
     }
 
    &__name {

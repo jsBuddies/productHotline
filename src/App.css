@@ -176,15 +176,21 @@ header {
     width: 275px; }
     header .heading__link {
       color: white;
-      text-decoration: none; }
+      text-decoration: none;
+      transition: all 0.5s ease-in-out; }
+      header .heading__link:hover {
+        fill: #60eacb; }
 
 main {
   padding: 0 0 60px; }
 
 .utility-nav button {
-  border: none;
+  border-bottom: 2px solid transparent;
   color: #181b31;
   font-weight: 700;
-  margin: 0 1.5rem; }
+  margin: 0 1.5rem;
+  transition: all 0.5s ease-in-out; }
+  .utility-nav button:hover {
+    border-bottom: 2px solid #60eacb; }
   .utility-nav button:last-of-type {
     margin-right: 0; }
