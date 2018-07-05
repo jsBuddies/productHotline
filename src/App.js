@@ -176,8 +176,13 @@ class App extends Component {
     })
   }
 
+  //callback to remove item in shopping cart
+  removeItemCallback = (e) => {
+    console.log(e.currentTarget)
+  }
+
   render() {
-    const shoppingCart = this.state.loggedIn === false ? <ShoppingCart cartArray={this.state.cart} cartProductGridArray={this.state.cartProductGrid} /> : null;
+    const shoppingCart = this.state.loggedIn === false ? <ShoppingCart cartArray={this.state.cart} cartProductGridArray={this.state.cartProductGrid} removeItemCallback={this.removeItemCallback} /> : null;
     
 
     return <BrowserRouter>

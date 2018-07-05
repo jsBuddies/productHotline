@@ -23,12 +23,15 @@ class ShoppingCart extends React.Component{
     const totalArray = cartArray.concat(cartProductGridArray);
     
     //maps over all the items
-    const cartItems = totalArray.map(item => {
-      return (<div className='cartItem'>
-        <p>{item.name}</p>
-        <p>${item.price}</p>
-      </div>)
-    });
+    const cartItems = totalArray.length !== 0 ? totalArray.map((item, index) => {
+      return <div key={index} className="cartItem">
+          <p>{item.name}</p>
+          <p>${item.price}</p>
+          <button onClick={this.props.removeItemCallback}>
+            Remove item
+          </button>
+        </div>;
+    }) : <p>No items in shopping cart</p>;
 
     //display cart items only when cartStatus is true
     const cartItemsDisplay = this.state.cartStatus ? cartItems : null;
@@ -44,7 +47,7 @@ class ShoppingCart extends React.Component{
     const priceTotal = price.reduce((a, b) => a + b, 0).toFixed(2);
 
     //displays the total price at the end of the cart Comp
-    const priceTotalDisplay = this.state.cartStatus ? <p>Total price: {priceTotal}</p> : null;
+    const priceTotalDisplay = this.state.cartStatus ? <p>Total price: ${priceTotal}</p> : null;
 
     return (
       <React.Fragment>
