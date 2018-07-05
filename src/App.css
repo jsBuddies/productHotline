@@ -145,6 +145,7 @@ img {
   width: 100%; }
 
 body {
+  background-color: #FFFAFB;
   font-family: "Libre Franklin", sans-serif;
   font-size: 1.6rem;
   line-height: 1.5;
