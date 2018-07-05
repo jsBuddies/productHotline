@@ -1,3 +1,6 @@
+/* colors */
+/* type */
+/* misc variables */
 article, aside, details, figcaption, figure, footer, header, hgroup, nav, section, summary {
   display: block; }
 
@@ -142,11 +145,53 @@ img {
   width: 100%; }
 
 body {
+  background-color: #FFFAFB;
+  font-family: "Libre Franklin", sans-serif;
   font-size: 1.6rem;
+  line-height: 1.5;
   margin: 0; }
 
 button {
   background: transparent;
-  border: 1px solid black;
+  border: none;
   border-radius: 0;
   padding: 0; }
+
+.app {
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh; }
+
+/* Header */
+header {
+  align-items: center;
+  background-color: #8B9BF1;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem; }
+  header .heading {
+    margin: 0;
+    padding-top: .5rem;
+    width: 275px; }
+    header .heading__link {
+      color: white;
+      text-decoration: none;
+      transition: all 0.5s ease-in-out; }
+      header .heading__link:hover {
+        fill: #60eacb; }
+
+main {
+  padding: 0 0 60px; }
+
+.utility-nav button {
+  border-bottom: 2px solid transparent;
+  color: #181b31;
+  font-weight: 700;
+  margin: 0 1.5rem;
+  transition: all 0.5s ease-in-out; }
+  .utility-nav button:hover {
+    border-bottom: 2px solid #60eacb; }
+  .utility-nav button:last-of-type {
+    margin-right: 0; }

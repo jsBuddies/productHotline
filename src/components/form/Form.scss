@@ -1,26 +1,84 @@
-@import 'SharedStyles.scss';
+@import '../../SharedStyles.scss';
 
-form {
-  padding: 50px 0;
-  font-size: 2.5rem;
+.form {    
+    display: grid;
+    grid-row-gap: 15px;
 
-  .form__label {
-    display: inline-block;
-    width: 120px;
+    @media screen and (min-width: 900px) {
+        grid-column-gap: 50px;
+        grid-template-columns: repeat(2, 1fr);
   }
-  .form__input {
-    padding: 5px 10px;
+
+  &__button {
+    background-color: darken($link-color, 5);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: white;
+    display: block;
+    line-height: 1.4;
+    margin: 0 auto;
+    padding: 1.5rem;
+    text-align: center;
+    transition: $transition;
+    width: 100%;
+    
+    @media screen and (min-width: 900px) {
+        margin-top: 1.5rem;
+    }
+
+    &--secondary {
+        background-color: white;
+        border: 1px solid darken($link-color, 5);
+        color: darken($link-color, 5);
+    }
+
+    &:hover {
+        background-color: lighten($link-color, 20);
+        border: 1px solid transparent;
+        color: black;
+    }
   }
-  button {
-    margin: 50px;
-    font-size: 4rem;
-    padding: 10px 20px;
-    border-radius: 10px;
-    border: none;
-    color: $white;
-    background: $highlight-color-primary;
+
+  &__buttons {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-column-gap: 20px;
+      grid-row-gap: 30px;
+      grid-template-columns: repeat(2, 1fr);
+
+      @media screen and (min-width: 900px) {
+        grid-column-gap: 50px;
+      }
+  }
+
+  &__heading {
+      margin-top: 0;
+  }  
+
+  &__item {
+      align-items: center;
+      display: grid;
+      grid-column-gap: 10px;
+      grid-template-columns: 8rem 1fr;
+  }
+
+  &__label {
+      font-weight: 700;
+  }
+
+  &__input {
+      padding: 1rem;
+  }
+
+  &__submit {
+      grid-column: 1 / -1;
+  }
+
+  &-container {
+      background-color: #ECEEFD;
+      box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+      padding: 3rem 0 5rem;
   }
 
 }
-
-

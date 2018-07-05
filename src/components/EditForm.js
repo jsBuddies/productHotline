@@ -1,6 +1,6 @@
 import React from 'react';
-
 import firebase from 'firebase';
+import classes from './form/Form.css';
 
 
 class EditForm extends React.Component {
@@ -109,109 +109,63 @@ class EditForm extends React.Component {
   };
 
   render() {
-    return (
-      <React.Fragment>
-        <form className="form" action="" onSubmit={this.submitHandler}>
-          <div>
-            <label className="form__label" htmlFor="name">
-              Name
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Name"
-              name="name"
-              value={this.state.name}
-              required
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="price">
-              Price
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Price"
-              name="price"
-              value={this.state.price}
-              required
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="brand">
-              Brand
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Brand"
-              name="brand"
-              value={this.state.brand}
-              required
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="camera">
-              Camera
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Camera"
-              name="camera"
-              value={this.state.camera}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="battery">
-              Battery
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Battery"
-              name="battery"
-              value={this.state.battery}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="weight">
-              Weight
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Weight"
-              name="weight"
-              value={this.state.weight}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <label className="form__label" htmlFor="size">
-              Size
-            </label>
-            <input
-              className="form__input"
-              type="text"
-              placeholder="Size"
-              name="size"
-              value={this.state.size}
-              onChange={this.handleChange}
-            />
-          </div>
-          <div>
-            <button>Submit</button>
-          </div>
-        </form>
-      </React.Fragment>
-    );
+    return <div className="form-container">
+        <div className="wrapper">
+          <h2 className="form__heading">Edit item</h2>
+          <form className="form" action="" onSubmit={this.submitHandler}>
+            <div className="form__item">
+              <label className="form__label" htmlFor="name">
+                Name
+              </label>
+              <input className="form__input" type="text" placeholder="Name" name="name" value={this.state.name} required onChange={this.handleChange} />
+            </div>
+            <div className="form__item">
+              <label className="form__label" htmlFor="price">
+                Price
+              </label>
+              <input className="form__input" type="text" placeholder="Price" name="price" value={this.state.price} required onChange={this.handleChange} />
+            </div>
+            <div className="form__item">
+              <label className="form__label" htmlFor="brand">
+                Brand
+              </label>
+              <input className="form__input" type="text" placeholder="Brand" name="brand" value={this.state.brand} required onChange={this.handleChange} />
+            </div>
+            <div className="form__item">
+              <label className="form__label" htmlFor="camera">
+                Camera
+              </label>
+              <input className="form__input" type="text" placeholder="Camera" name="camera" value={this.state.camera} onChange={this.handleChange} />
+            </div>
+            <div className="form__item">
+              <label className="form__label" htmlFor="battery">
+                Battery
+              </label>
+              <input className="form__input" type="text" placeholder="Battery" name="battery" value={this.state.battery} onChange={this.handleChange} />
+            </div>
+            <div className="form__item">
+              <label className="form__label" htmlFor="weight">
+                Weight
+              </label>
+              <input className="form__input" type="text" placeholder="Weight" name="weight" value={this.state.weight} onChange={this.handleChange} />
+            </div>
+            <div className="form__item">
+              <label className="form__label" htmlFor="size">
+                Size
+              </label>
+              <input className="form__input" type="text" placeholder="Size" name="size" value={this.state.size} onChange={this.handleChange} />
+            </div>
+            <div className="form__buttons">
+              <a className="form__button form__button--secondary" onClick={this.props.closeEditForm}>
+                <i className="fas fa-minus-circle" /> Hide form
+              </a>
+              <button className="form__button">
+                <i className="far fa-save" /> Save changes
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>;
   }
 }
 

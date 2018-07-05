@@ -8,8 +8,8 @@ import LoginButton from './components/LoginButton';
 import ProductGrid from './components/ProductGrid/ProductGrid';
 import ProductSingle from './components/ProductSingle/ProductSingle';
 import testProducts from './testProducts';
-import Header from './components/Header';
-import Footer from './components/Footer';
+import SiteHeadline from './components/SiteHeadline/SiteHeadline';
+import Footer from './components/Footer/Footer';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 
 const config = {
@@ -106,6 +106,7 @@ class App extends Component {
     const visible = this.state.adminFormVisible === false ? true : false;
     const buttonText = this.state.adminFormVisible === false ? 'Hide form' : 'Add inventory';
     this.setState({
+      editFormVisible: false,
       adminFormVisible: visible,
       adminButtonText: buttonText
     });
@@ -119,8 +120,9 @@ class App extends Component {
   }
 
   editItem(keyToEdit) {
-    console.log(`editing ${keyToEdit}`);
+    window.scrollTo(0, 0);
     this.setState({
+      adminFormVisible: false,
       editFormVisible: true,
       keyToEdit
     })
@@ -186,36 +188,29 @@ class App extends Component {
     
 
     return <BrowserRouter>
-        <div>
-          <Header />
+      <div className="app">
+        <header>
+        <SiteHeadline />
+        <div className="utility-nav">
+          {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.adminPage}>{this.state.adminButtonText}</button>} />}
+          {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
           <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-          {this.state.currentUserRole === "admin" && <button
-              onClick={this.adminPage}
-            >
-              {this.state.adminButtonText}
-            </button>}
-          {this.state.currentUserRole === "admin" && <button
-              onClick={this.loadTestProducts}
-            >
-              Load sample products
-            </button>}
           {shoppingCart}
-
-          <main>
-            {this.state.adminFormVisible === true && <Route path="/" exact component={Form} />}
-            {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
-            <Route path="/" exact render={() => <ProductGrid 
-              products={this.state.products} 
-              currentUserRole={this.state.currentUserRole} 
-              removeItem={this.removeItem} 
-              editItem={this.editItem} 
-              loggedIn={this.state.loggedIn}
-              setCartProductGridCallBack={this.setCartProductGridCallBack} />} />
-            <Route path="/products/:productId" render={props => <ProductSingle {...this.props} {...props} loggedIn={this.state.loggedIn} setCartCallback={this.setCartCallback} />} />
-          </main>
-          <Footer />
         </div>
-      </BrowserRouter>;
+        </header>
+
+
+        <main>
+          {this.state.adminFormVisible === true && <Route path="/" exact render={() => <Form adminPage={this.adminPage} />} />}
+          {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
+          <div className="wrapper">
+          <Route path="/" exact render={() => <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} editItem={this.editItem} />} />
+          <Route path="/products/:productId" component={ProductSingle} />
+          </div>
+        </main>
+        <Footer />
+      </div>
+    </BrowserRouter>;
 
   }
 

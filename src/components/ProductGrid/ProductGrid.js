@@ -30,9 +30,20 @@ class ProductGrid extends React.Component {
                                         <span className="product__name__brand">{this.props.products[key].brand}</span> <span className="product__name">{this.props.products[key].name}</span>
                                     </Link>
                                 </h3>
-                                <p className="product__price">${this.props.products[key].price}</p>
-                                {this.props.currentUserRole === 'admin' && <button onClick={() => this.props.removeItem(key)}>Remove</button>}
-                                {this.props.currentUserRole === 'admin' && <button onClick={() => this.props.editItem(key)}>Edit</button>}
+                                <p className="product__price">
+                                    <span className="product__price__currency">
+                                        $
+                                    </span>
+                                    {this.props.products[key].price}
+                                </p>
+                                {this.props.currentUserRole === "admin" && <div className="product__buttons">
+                                    <button className="product__button" onClick={() => this.props.removeItem(key)}>
+                                        <i className="far fa-times-circle" /> Remove
+                                    </button>
+                                    <button className="product__button" onClick={() => this.props.editItem(key)}>
+                                        <i className="far fa-edit" /> Edit
+                                    </button>
+                                </div>}
                                 {addToCartBtn}
                             </li>
                         )
