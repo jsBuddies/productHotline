@@ -1,0 +1,63 @@
+@import 'SharedStyles.scss';
+
+.form {
+  display: grid;
+  grid-column-gap: 50px;
+  grid-row-gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+
+  &__button {
+    background-color: darken($link-color, 5);
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: white;
+    display: block;
+    line-height: 1.4;
+    margin: 1.5rem auto 0;
+    padding: 1.5rem;
+    text-align: center;
+    transition: $transition;
+    width: 100%;
+
+    &--secondary {
+        background-color: white;
+        border: 1px solid darken($link-color, 5);
+        color: darken($link-color, 5);
+    }
+
+    &:hover {
+        background-color: lighten($link-color, 20);
+        border: 1px solid transparent;
+        color: black;
+    }
+  }
+
+  &__heading {
+      margin-top: 0;
+  }  
+
+  &__item {
+      align-items: center;
+      display: grid;
+      grid-column-gap: 10px;
+      grid-template-columns: 8rem 1fr;
+  }
+
+  &__label {
+      font-weight: 700;
+  }
+
+  &__input {
+      padding: 1rem;
+  }
+
+  &__submit {
+      grid-column: 1 / -1;
+  }
+
+  &-container {
+      background-color: #ECEEFD;
+      padding: 3rem 0 5rem;
+  }
+
+}

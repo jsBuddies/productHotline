@@ -1,0 +1,74 @@
+@import 'SharedStyles.scss';
+
+.product-single {
+    display: grid;
+    grid-column-gap: 70px;
+    grid-template-columns: 1fr 2fr;
+    margin-top: 5rem;
+
+    &__details {
+        font-size: 2rem;
+
+        &__label {
+            display: inline-block;
+            font-weight: 700;
+            width: 10rem;
+        }
+    }
+
+    &__headline {
+        margin: 0;
+    }
+
+    &__image {
+        display: block;
+        object-fit: contain;
+        max-height: 70vh;
+        width: 100%;
+    }
+
+   &__name {
+        display: block;
+        font-size: 3rem;
+        line-height: 1.3;
+        padding: .5rem 0;
+
+        &__brand {
+            color: $black;
+            display: block;
+            text-transform: uppercase;
+        }
+
+        &__link {
+            color: $button-color;
+            text-decoration: none;
+
+            &:hover {
+                color: darken($button-color, 20);
+            }
+        }
+    }
+
+    &__price {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-top: 0;
+        position: relative;
+
+        &__currency {
+            font-size: 2rem;
+            padding-right: 2px;
+            position: relative;
+            top: -10px;
+        }
+    }
+
+    &__specs-list {
+        @include unstyledList;
+
+        &__item {
+            padding-bottom: 1rem;
+        }
+
+    }
+}

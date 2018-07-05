@@ -1,6 +1,44 @@
-form {
-  display: flex;
-  flex-flow: column;
-
-  align-items: center;
-}
+/* colors */
+/* type */
+/* misc variables */
+.form {
+  display: grid;
+  grid-column-gap: 50px;
+  grid-row-gap: 15px;
+  grid-template-columns: repeat(2, 1fr); }
+  .form__button {
+    background-color: #fe4f78;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: white;
+    display: block;
+    line-height: 1.4;
+    margin: 1.5rem auto 0;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.5s ease-in-out;
+    width: 100%; }
+    .form__button--secondary {
+      background-color: white;
+      border: 1px solid #fe4f78;
+      color: #fe4f78; }
+    .form__button:hover {
+      background-color: #ffcdd9;
+      border: 1px solid transparent;
+      color: black; }
+  .form__heading {
+    margin-top: 0; }
+  .form__item {
+    align-items: center;
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 8rem 1fr; }
+  .form__label {
+    font-weight: 700; }
+  .form__input {
+    padding: 1rem; }
+  .form__submit {
+    grid-column: 1 / -1; }
+  .form-container {
+    background-color: #ECEEFD;
+    padding: 3rem 0 5rem; }
