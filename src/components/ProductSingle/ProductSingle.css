@@ -1,26 +1,23 @@
 /* colors */
 /* type */
 /* misc variables */
-.productSingleContainer {
-  background: #dde1f8; }
-
 .product-single {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  grid-column-gap: 30px; }
+  grid-column-gap: 50px; }
 
 .product-single__headline {
-  color: #fe688b;
   font-size: 5rem; }
 
-.product-single__details__specs ul {
-  list-style: none; }
-  .product-single__details__specs ul span {
-    display: inline-block; }
-
-.product-single__details__specs .label {
-  width: 80px;
-  color: #636572; }
+.product-single__details__specs {
+  font-size: 3rem; }
+  .product-single__details__specs ul {
+    list-style: none; }
+    .product-single__details__specs ul span {
+      display: inline-block; }
+  .product-single__details__specs .label {
+    width: 110px;
+    color: #636572; }
 
 .product-single__image {
   display: block;

@@ -1,31 +1,46 @@
 import React from 'react';
 import classes from './ProductGrid.css';
+import { Link } from 'react-router-dom';
 
-const ProductGrid = (props) => {
-    return (
-        <div className="product-grid__container">
-            <h2 className="product-grid__headline">Products</h2>
-            <ul className="product-grid">
-                {props.products !== null ? Object.keys(props.products).sort().reverse().map((key) => {
-                    return (
-                        <li className="product" key={key} index={key}>
-                            <a href={`/products/${key}`} className="product__image__link">
-                                <img className="product__image" src={props.products[key].imageLink} alt={props.products[key].name} />
-                            </a>
-                            <h3 className="product__headline">
-                                <a className="product__name__link" href={`/products/${key}`}>
-                                    <span className="product__name__brand">{props.products[key].brand}</span> <span className="product__name">{props.products[key].name}</span>
-                                </a>
-                            </h3>
-                            <p className="product__price">${props.products[key].price}</p>
-                            {props.currentUserRole === 'admin' && <button onClick={() => props.removeItem(key)}>Remove</button>}
-                            {props.currentUserRole === 'admin' && <button onClick={() => props.editItem(key)}>Edit</button>}
-                        </li>
-                    )
-                }) : null}
-            </ul>
-        </div>
-    )
+class ProductGrid extends React.Component {
+    constructor(){
+        super();
+
+    }
+
+    addToCart = (e) => {
+        const itemIndex = e.currentTarget.parentElement.attributes.index.value;
+        this.props.setCartProductGridCallBack(itemIndex);
+    }
+    
+    render() {
+        const addToCartBtn = this.props.loggedIn === false ? <button onClick={this.addToCart} >Add to Cart</button> : null;
+        return (
+            <div className="product-grid__container">
+                <h2 className="product-grid__headline">Products</h2>
+                <ul className="product-grid">
+                    {this.props.products !== null ? Object.keys(this.props.products).sort().reverse().map((key) => {
+                        return (
+                            <li className="product" key={key} index={key}>
+                                <Link to={`/products/${key}`} className="product__image__link">
+                                    <img className="product__image" src={this.props.products[key].imageLink} alt={this.props.products[key].name} />
+                                </Link>
+                                <h3 className="product__headline">
+                                    <Link className="product__name__link" to={`/products/${key}`}>
+                                        <span className="product__name__brand">{this.props.products[key].brand}</span> <span className="product__name">{this.props.products[key].name}</span>
+                                    </Link>
+                                </h3>
+                                <p className="product__price">${this.props.products[key].price}</p>
+                                {this.props.currentUserRole === 'admin' && <button onClick={() => this.props.removeItem(key)}>Remove</button>}
+                                {this.props.currentUserRole === 'admin' && <button onClick={() => this.props.editItem(key)}>Edit</button>}
+                                {addToCartBtn}
+                            </li>
+                        )
+                    }) : null}
+                </ul>
+            </div>
+        )
+    }
 }
 
 export default ProductGrid;

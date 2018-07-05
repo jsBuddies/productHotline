@@ -6,7 +6,8 @@ class ProductSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      product: {}
+      product: {},
+      singleCart: []
     };
   }
 
@@ -21,10 +22,24 @@ class ProductSingle extends React.Component {
     });
   }
 
+  addToCart = () => {
+    const item = this.state.product;
+    let singleCartClone = [...this.state.singleCart];
+    singleCartClone.push(item);
+
+    this.setState({
+      singleCart: singleCartClone
+    }, () => {
+      this.props.setCartCallback(this.state.singleCart);
+    })
+  }
+
   render() {
+    const addToCartBtn = this.props.loggedIn === false ? <button onClick={this.addToCart} >Add To Cart</button> : null;
     return (
       <React.Fragment>
         <div className="productSingleContainer">
+          <div className="wrapper">
             {this.state.product !== null && (
             <div className="product-single">
                 <img
@@ -44,6 +59,7 @@ class ProductSingle extends React.Component {
                 <p className="product-single__price">
                     <span className='priceTag'>$</span>{this.state.product.price}
                 </p>
+                {addToCartBtn}
                 <div className="product-single__details__specs">
                     <ul>
                     {"battery" in this.state.product &&
@@ -70,6 +86,7 @@ class ProductSingle extends React.Component {
             {typeof this.state.product === "undefined" && (
             <div className="error-message">Nothing to see here</div>
             )}
+          </div>
         </div>
       </React.Fragment>
     );

@@ -8,7 +8,7 @@ form {
     display: inline-block;
     width: 120px; }
   form .form__input {
-    padding: 5px; }
+    padding: 5px 10px; }
   form button {
     margin: 50px;
     font-size: 4rem;
