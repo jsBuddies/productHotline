@@ -35,31 +35,31 @@ class ProductSingle extends React.Component {
               <h2 className="product-single__headline">
                 <span className="product-single__name__brand">
                   {this.state.product.brand}
-                </span>{" "}
+                </span>
                 <span className="product-single__name">
                   {this.state.product.name}
                 </span>
               </h2>
               <p className="product-single__price">
-                ${this.state.product.price}
+                <span class="product-single__price__currency">$</span>{this.state.product.price}
               </p>
-              <div className="product-single__details__specs">
-                <ul>
+              <div>
+                <ul className="product-single__specs-list">
                   {"battery" in this.state.product &&
                   this.state.product.battery.length > 0 ? (
-                    <li>Battery: {this.state.product.battery}</li>
+                      <li className="product-single__specs-list__item"><span className="product-single__details__label">Battery: </span> {this.state.product.battery}</li>
                   ) : null}
                   {"camera" in this.state.product &&
                   this.state.product.camera.length > 0 ? (
-                    <li>Camera: {this.state.product.camera}</li>
+                      <li className="product-single__specs-list__item"><span className="product-single__details__label">Camera: </span>{this.state.product.camera}</li>
                   ) : null}
                   {"size" in this.state.product &&
                   this.state.product.size.length > 0 ? (
-                    <li>Size: {this.state.product.size}</li>
+                      <li className="product-single__specs-list__item"><span className="product-single__details__label">Size: </span>{this.state.product.size}</li>
                   ) : null}
                   {"weight" in this.state.product &&
                   this.state.product.weight.length > 0 ? (
-                    <li>Weight: {this.state.product.weight}</li>
+                      <li className="product-single__specs-list__item"><span className="product-single__details__label">Weight: </span>{this.state.product.weight}</li>
                   ) : null}
                 </ul>
               </div>
