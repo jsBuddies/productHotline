@@ -185,10 +185,13 @@ class App extends Component {
   }
 
   //callback to remove item in shopping cart
-  removeItemCallback = (e) => {
-    const itemId = e.currentTarget.parentElement.attributes.itemid.value;
-    const totalArrayClone = [...this.state.totalArray];
-    
+  removeItemCallback = (index) => {
+    const totalCartArrayClone = [...this.state.totalCartArray];
+    totalCartArrayClone.splice(index, 1);
+    console.log(totalCartArrayClone);
+    this.setState({
+      totalCartArray: totalCartArrayClone
+    })
   }
 
   render() {

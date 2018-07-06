@@ -16,18 +16,13 @@ class ShoppingCart extends React.Component{
   }
 
   render() {
-    // const cartArray = this.props.cartArray;
-    // const cartProductGridArray = this.props.cartProductGridArray;
-
-    // //adds the two arrays from ProductSingle Comp and the ProductGrid Comp
-    // const totalArray = cartArray.concat(cartProductGridArray);
     
     //maps over all the items
     const cartItems = this.props.totalCartArray.length !== 0 ? this.props.totalCartArray.map((item, index) => {
-      return <div key={index} className="cartItem" itemID={item.itemId}>
+      return <div key={index} className="cartItem" itemID={item.itemId} index={index}>
           <p>{item.name}</p>
           <p>${item.price}</p>
-          <button onClick={this.props.removeItemCallback}>
+          <button onClick={() => this.props.removeItemCallback(index)}>
             Remove item
           </button>
         </div>;
