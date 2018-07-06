@@ -27,6 +27,14 @@ class Form extends React.Component {
 
   submitHandler = (e) => {
     e.preventDefault();
+
+    //stops form submittion if price is not a number
+    const priceValue = e.currentTarget[1].value;
+    if (isNaN(priceValue)) {
+      alert("Please enter numbers only");
+      return false;
+    }
+
     const ref = firebase.storage().ref(`phone-phax`);
     const file = document.querySelector('#imageLink').files[0];
     const name = (+new Date()) + '-' + file.name;
