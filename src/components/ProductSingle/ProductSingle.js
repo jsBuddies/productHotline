@@ -6,8 +6,7 @@ class ProductSingle extends React.Component {
   constructor() {
     super();
     this.state = {
-      product: {},
-      singleCart: []
+      product: {}
     };
   }
 
@@ -24,14 +23,8 @@ class ProductSingle extends React.Component {
 
   addToCart = () => {
     const item = this.state.product;
-    let singleCartClone = [...this.state.singleCart];
-    singleCartClone.push(item);
 
-    this.setState({
-      singleCart: singleCartClone
-    }, () => {
-      this.props.setCartCallback(this.state.singleCart);
-    })
+    this.props.setCartCallback(item, this.props.match.params.productId);
   }
 
   render() {
@@ -49,7 +42,7 @@ class ProductSingle extends React.Component {
                 </span>
               </h2>
               <p className="product-single__price">
-                <span class="product-single__price__currency">$</span>
+                <span className="product-single__price__currency">$</span>
                 {this.state.product.price}
               </p>
               {addToCartBtn}

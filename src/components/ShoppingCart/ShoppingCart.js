@@ -8,7 +8,7 @@ class ShoppingCart extends React.Component{
       cartStatus: false
     }
   }
-
+  
   cartClick = () => {
     this.setState({
       cartStatus: !this.state.cartStatus
@@ -16,15 +16,15 @@ class ShoppingCart extends React.Component{
   }
 
   render() {
-    const cartArray = this.props.cartArray;
-    const cartProductGridArray = this.props.cartProductGridArray;
+    // const cartArray = this.props.cartArray;
+    // const cartProductGridArray = this.props.cartProductGridArray;
 
-    //adds the two arrays from ProductSingle Comp and the ProductGrid Comp
-    const totalArray = cartArray.concat(cartProductGridArray);
+    // //adds the two arrays from ProductSingle Comp and the ProductGrid Comp
+    // const totalArray = cartArray.concat(cartProductGridArray);
     
     //maps over all the items
-    const cartItems = totalArray.length !== 0 ? totalArray.map((item, index) => {
-      return <div key={index} className="cartItem">
+    const cartItems = this.props.totalCartArray.length !== 0 ? this.props.totalCartArray.map((item, index) => {
+      return <div key={index} className="cartItem" itemID={item.itemId}>
           <p>{item.name}</p>
           <p>${item.price}</p>
           <button onClick={this.props.removeItemCallback}>
@@ -37,12 +37,12 @@ class ShoppingCart extends React.Component{
     const cartItemsDisplay = this.state.cartStatus ? cartItems : null;
 
     //cartButton comp with item total
-    const cartButton = !this.state.cartStatus ? <button onClick={this.cartClick} >{`Items total: ${totalArray.length}`}</button> : <button onClick={this.cartClick} >Close Cart</button>;
+    const cartButton = !this.state.cartStatus ? <button onClick={this.cartClick} >{`Items total: ${this.props.totalCartArray.length}`}</button> : <button onClick={this.cartClick} >Close Cart</button>;
 
     //changes all the strings to numbers before pushing to priceTotal arr for the sum of the total price
     let price =[];
-    for (let i = 0; i < totalArray.length; i++){
-        price.push(parseFloat(totalArray[i].price))
+    for (let i = 0; i < this.props.totalCartArray.length; i++){
+        price.push(parseFloat(this.props.totalCartArray[i].price))
     };
     const priceTotal = price.reduce((a, b) => a + b, 0).toFixed(2);
 
