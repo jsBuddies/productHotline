@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import classes from './form/Form.css';
 
+
 class EditForm extends React.Component {
   constructor() {
     super();
@@ -73,30 +74,38 @@ class EditForm extends React.Component {
 
   submitHandler = e => {
     e.preventDefault();
-        const product = {
-            battery: this.state.battery || '',
-            brand: this.state.brand || '',
-            camera: this.state.camera || '',
-            imageLink: this.state.imageLink || '',
-            name: this.state.name || '',
-            price: this.state.price || '',
-            size: this.state.size || '',
-            weight: this.state.weight || ''
-        };
-        let dbRef = firebase.database().ref(`products/${this.state.productId}`);
-        dbRef.set(product);
-        this.setState({
-            battery: "",
-            brand: "",
-            camera: "",
-            name: "",
-            price: "",
-            size: "",
-            weight: "",
-            imageLink: null,
-            productId: ''
-        });
-        this.props.closeEditForm();
+
+    //stops form submittion if form is not a number
+    const priceValue = e.currentTarget[1].value;
+    if (isNaN(priceValue)) {
+      alert("Please enter numbers only");
+      return false;
+    }
+
+    const product = {
+        battery: this.state.battery || '',
+        brand: this.state.brand || '',
+        camera: this.state.camera || '',
+        imageLink: this.state.imageLink || '',
+        name: this.state.name || '',
+        price: this.state.price || '',
+        size: this.state.size || '',
+        weight: this.state.weight || ''
+    };
+    let dbRef = firebase.database().ref(`products/${this.state.productId}`);
+    dbRef.set(product);
+    this.setState({
+        battery: "",
+        brand: "",
+        camera: "",
+        name: "",
+        price: "",
+        size: "",
+        weight: "",
+        imageLink: null,
+        productId: ''
+    });
+    this.props.closeEditForm();
   };
 
   render() {

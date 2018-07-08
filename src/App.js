@@ -10,6 +10,8 @@ import ProductSingle from './components/ProductSingle/ProductSingle';
 import testProducts from './testProducts';
 import SiteHeadline from './components/SiteHeadline/SiteHeadline';
 import Footer from './components/Footer/Footer';
+import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import CartButton from './components/CartButton';
 
 const config = {
   apiKey: "AIzaSyA3sIWuCGhRnsMM2uxTlOIZ8RDSk1oS4mo",
@@ -35,13 +37,18 @@ class App extends Component {
       editFormVisible: false,
       keyToEdit: '',
       loggedIn: false,
-      products: {}
+      products: {},
+      cart: [],
+      cartStatus: false,
+      cartProductGrid: [],
+      totalCartArray: []
     };
 
     this.loginWithGoogle = this.loginWithGoogle.bind(this);
     this.closeEditForm = this.closeEditForm.bind(this);
     this.editItem = this.editItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.cartClick = this.cartClick.bind(this);
   }
 
 
@@ -109,6 +116,12 @@ class App extends Component {
     });
   };
 
+  cartClick = () => {
+    this.setState({
+      cartStatus: !this.state.cartStatus
+    })
+  }
+
   closeEditForm(e) {
     this.setState({
       editFormVisible: false,
@@ -157,14 +170,48 @@ class App extends Component {
       .remove();
   }
 
+  //callback function for ProductSingle Comp
+  setCartCallback = (item, itemId) => {
+
+    item['itemId'] = itemId;
+    this.setState({
+      totalCartArray: [...this.state.totalCartArray, item]
+    })
+
+  }
+
+  //callback function for ProductGrid Comp
+  setCartProductGridCallBack = (index) => {
+    let cartProductGridClone = [...this.state.cartProductGrid];
+
+    //add another value to the object of itemId
+    const selectedItem = this.state.products[index];
+    selectedItem['itemId'] = index;
+
+    this.setState({
+      totalCartArray: [...this.state.totalCartArray, selectedItem]
+    })
+  }
+
+  //callback to remove item in shopping cart
+  removeItemCallback = (index) => {
+    const totalCartArrayClone = [...this.state.totalCartArray];
+    totalCartArrayClone.splice(index, 1);
+    console.log(totalCartArrayClone);
+    this.setState({
+      totalCartArray: totalCartArrayClone
+    })
+  }
+
   render() {
-    const FormContainer = (props) => {
-      return (
-        <Form
-          submit={this.submitHandler}
-        />
-      )
-    }
+    const shoppingCart = this.state.loggedIn === false ? 
+      <ShoppingCart 
+        cartArray={this.state.cart} 
+        cartProductGridArray={this.state.cartProductGrid} 
+        removeItemCallback={this.removeItemCallback} 
+        totalCartArray={this.state.totalCartArray}
+        /> : null;
+    
 
     return <BrowserRouter>
       <div className="app">
@@ -172,18 +219,27 @@ class App extends Component {
         <SiteHeadline />
         <div className="utility-nav">
           {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.adminPage}>{this.state.adminButtonText}</button>} />}
-          {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
+            {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
           <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
+          {this.state.loggedIn === false && <CartButton cartClick={this.cartClick} totalCartArray={this.state.totalCartArray} cartStatus={this.state.cartStatus} />}
         </div>
         </header>
 
 
         <main>
+          {this.state.cartStatus === true && <ShoppingCart cartStatus={this.state.cartStatus} totalCartArray={this.state.totalCartArray} removeItemCallback={this.removeItemCallback} />}
           {this.state.adminFormVisible === true && <Route path="/" exact render={() => <Form adminPage={this.adminPage} />} />}
           {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
           <div className="wrapper">
-          <Route path="/" exact render={() => <ProductGrid products={this.state.products} currentUserRole={this.state.currentUserRole} removeItem={this.removeItem} editItem={this.editItem} />} />
-          <Route path="/products/:productId" component={ProductSingle} />
+          <Route path="/" exact render={() => 
+            <ProductGrid 
+              products={this.state.products} 
+              currentUserRole={this.state.currentUserRole} 
+              removeItem={this.removeItem} 
+              editItem={this.editItem} 
+              loggedIn={this.state.loggedIn}
+              setCartProductGridCallBack={this.setCartProductGridCallBack} />} />
+            <Route path="/products/:productId" render={props => <ProductSingle {...this.props} {...props} loggedIn={this.state.loggedIn} setCartCallback={this.setCartCallback} />} />
           </div>
         </main>
         <Footer />
