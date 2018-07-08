@@ -46,6 +46,8 @@
     .product-single__name__brand {
       color: #181b31;
       display: block;
+      font-size: 2rem;
+      padding-bottom: .4rem;
       text-transform: uppercase; }
     .product-single__name__link {
       color: #3d59e8;
@@ -53,7 +55,7 @@
       .product-single__name__link:hover {
         color: #142dab; }
   .product-single__price {
-    font-size: 3rem;
+    font-size: 3.5rem;
     font-weight: 900;
     margin-top: 0;
     position: relative; }
