@@ -221,7 +221,7 @@ class App extends Component {
           {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.adminPage}>{this.state.adminButtonText}</button>} />}
             {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
           <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-          {this.state.loggedIn === false && <CartButton cartClick={this.cartClick} totalCartArray={this.state.totalCartArray} cartStatus={this.state.cartStatus} />}
+          {this.state.currentUserRole !== 'admin' && <CartButton cartClick={this.cartClick} totalCartArray={this.state.totalCartArray} cartStatus={this.state.cartStatus} />}
         </div>
         </header>
 
