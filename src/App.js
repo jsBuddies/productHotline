@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
+import config from './keys/keys';
 import './App.css';
-import { BrowserRouter, Route, Switch, Link, NavLink } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Link, NavLink } from "react-router-dom";
 import EditForm from './components/EditForm';
 import Form from './components/form/Form';
 import LoginButton from './components/LoginButton';
@@ -13,14 +14,6 @@ import Footer from './components/Footer/Footer';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import CartButton from './components/CartButton';
 
-const config = {
-  apiKey: "AIzaSyA3sIWuCGhRnsMM2uxTlOIZ8RDSk1oS4mo",
-  authDomain: "phone-phax.firebaseapp.com",
-  databaseURL: "https://phone-phax.firebaseio.com",
-  projectId: "phone-phax",
-  storageBucket: "phone-phax.appspot.com",
-  messagingSenderId: "690418395994"
-};
 
 firebase.initializeApp(config);
 
@@ -158,7 +151,11 @@ class App extends Component {
       });
       this.setState({
         cartStatus: false
-      })
+      });
+  }
+
+  notAuthorized = () => {
+    alert('Your Google account is not authorized. Please contact website administrator for permission.');
   }
 
   logout() {
@@ -216,7 +213,7 @@ class App extends Component {
         /> : null;
     
 
-    return <BrowserRouter>
+    return <Router>
       <div className="app">
         <header>
         <SiteHeadline />
@@ -247,7 +244,7 @@ class App extends Component {
         </main>
         <Footer />
       </div>
-    </BrowserRouter>;
+    </Router>;
 
   }
 
