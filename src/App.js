@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import firebase from 'firebase';
-import firebaseKey from './keys/keys';
+import config from './keys/keys';
 import './App.css';
 import { BrowserRouter, Route, Switch, Link, NavLink } from "react-router-dom";
 import EditForm from './components/EditForm';
@@ -14,14 +14,6 @@ import Footer from './components/Footer/Footer';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
 import CartButton from './components/CartButton';
 
-const config = {
-  apiKey: firebaseKey,
-  authDomain: "phone-phax.firebaseapp.com",
-  databaseURL: "https://phone-phax.firebaseio.com",
-  projectId: "phone-phax",
-  storageBucket: "phone-phax.appspot.com",
-  messagingSenderId: "690418395994"
-};
 
 firebase.initializeApp(config);
 
