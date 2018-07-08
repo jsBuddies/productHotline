@@ -9,12 +9,16 @@ class ProductGrid extends React.Component {
     }
 
     addToCart = (e) => {
-        const itemIndex = e.currentTarget.parentElement.attributes.index.value;
+        const itemIndex = e.currentTarget.parentElement.parentElement.attributes.index.value;
         this.props.setCartProductGridCallBack(itemIndex);
     }
     
     render() {
-        const addToCartBtn = this.props.loggedIn === false ? <button onClick={this.addToCart} >Add to Cart</button> : null;
+        const addToCartBtn = this.props.loggedIn === false ? <div className="product__buttons">
+              <button className="product__button" onClick={this.addToCart}>
+                <i className="fas fa-cart-plus" /> Add to Cart
+              </button>
+            </div> : null;
         return (
             <div className="product-grid__container">
                 <h2 className="product-grid__headline">Products</h2>

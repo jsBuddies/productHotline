@@ -50,10 +50,19 @@ header {
     justify-content: space-between;
     padding: 1rem 2rem;
 
+    @media screen and (max-width: 750px) {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
     .heading {
         margin: 0;
         padding-top: .5rem;
         width: 275px;
+
+        @media screen and (max-width: 750px) {
+            margin: 0 auto;
+        }
 
         &__link {
             color: white;
@@ -72,19 +81,59 @@ main {
 }
 
 .utility-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    @media screen and (max-width: 750px) {
+        margin: 0 auto;
+    }
+
+    .cart-button {
+        position: relative; 
+        transition: $transition;
+
+        &:hover {
+            .cart-button__items {
+                background: white;
+                color: $link-color;
+            }
+        }
+
+        &__items {
+            background: black;
+            border-radius: 50%;
+            color: white;
+            font-size: .7em;
+            margin-left: 2px;
+            padding: 3px 6px;
+            position: relative;
+            top: -10px;
+            transition: $transition;
+        }
+    }
+
     button {
         border-bottom: 2px solid transparent;
         color: $black;
         font-weight: 700;
-        margin: 0 1.5rem;
+        margin: .5rem 1rem .5rem;
         transition: $transition;
+        
+        @media screen and (min-width: 500px) {
+            margin: 0 1.5rem;
+        }
 
         &:hover {
-            border-bottom: 2px solid $highlight-color-secondary;
+            border-bottom: 2px solid $highlight-color-primary;
+            color: white;
         }
  
         &:last-of-type {
-            margin-right: 0;
+            @media screen and (min-width: 750px) {
+                margin-right: 0;
+
+            }
         }
     }
 }

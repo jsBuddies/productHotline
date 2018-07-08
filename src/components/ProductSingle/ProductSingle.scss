@@ -9,6 +9,22 @@
         grid-template-columns: 1fr 2fr;
     }
 
+    &__button {
+        background-color: darken($link-color, 5);
+        border: none;
+        border-radius: 4px;
+        color: white;
+        font-size: 1.8rem;
+        margin-top: 1.75rem;
+        padding: 1.5rem 3rem;
+        transition: $transition;
+
+        &:hover {
+            background-color: lighten($link-color, 20);
+            color: black;
+        }
+    }
+
     &__details {
         font-size: 2rem;
 

@@ -28,7 +28,8 @@ class ProductSingle extends React.Component {
   }
 
   render() {
-    const addToCartBtn = this.props.loggedIn === false ? <button onClick={this.addToCart} >Add To Cart</button> : null;
+    const addToCartBtn = this.props.loggedIn === false ? <button className="product-single__button" onClick={this.addToCart}><i className="fas fa-cart-plus" /> Add To Cart
+        </button> : null;
     return <React.Fragment>
         {this.state.product !== null && <div className="product-single">
             <img className="product-single__image" src={this.state.product.imageLink} alt={this.state.product.name} />
@@ -45,7 +46,6 @@ class ProductSingle extends React.Component {
                 <span className="product-single__price__currency">$</span>
                 {this.state.product.price}
               </p>
-              {addToCartBtn}
               <div>
                 <ul className="product-single__specs-list">
                   {"battery" in this.state.product && this.state.product.battery.length > 0 ? <li className="product-single__specs-list__item">
@@ -72,6 +72,7 @@ class ProductSingle extends React.Component {
                       {this.state.product.weight}
                     </li> : null}
                 </ul>
+                {addToCartBtn}
               </div>
             </div>
           </div>}

@@ -11,6 +11,7 @@ import testProducts from './testProducts';
 import SiteHeadline from './components/SiteHeadline/SiteHeadline';
 import Footer from './components/Footer/Footer';
 import ShoppingCart from './components/ShoppingCart/ShoppingCart';
+import CartButton from './components/CartButton';
 
 const config = {
   apiKey: "AIzaSyA3sIWuCGhRnsMM2uxTlOIZ8RDSk1oS4mo",
@@ -38,6 +39,7 @@ class App extends Component {
       loggedIn: false,
       products: {},
       cart: [],
+      cartStatus: false,
       cartProductGrid: [],
       totalCartArray: []
     };
@@ -46,6 +48,7 @@ class App extends Component {
     this.closeEditForm = this.closeEditForm.bind(this);
     this.editItem = this.editItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.cartClick = this.cartClick.bind(this);
   }
 
 
@@ -112,6 +115,12 @@ class App extends Component {
       adminButtonText: buttonText
     });
   };
+
+  cartClick = () => {
+    this.setState({
+      cartStatus: !this.state.cartStatus
+    })
+  }
 
   closeEditForm(e) {
     this.setState({
@@ -210,16 +219,15 @@ class App extends Component {
         <SiteHeadline />
         <div className="utility-nav">
           {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.adminPage}>{this.state.adminButtonText}</button>} />}
-          {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
+            {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
           <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-
-        {/* shopping cart Comp */}
-          {shoppingCart}
+          {this.state.loggedIn === false && <CartButton cartClick={this.cartClick} totalCartArray={this.state.totalCartArray} cartStatus={this.state.cartStatus} />}
         </div>
         </header>
 
 
         <main>
+          {this.state.cartStatus === true && <ShoppingCart cartStatus={this.state.cartStatus} totalCartArray={this.state.totalCartArray} removeItemCallback={this.removeItemCallback} />}
           {this.state.adminFormVisible === true && <Route path="/" exact render={() => <Form adminPage={this.adminPage} />} />}
           {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
           <div className="wrapper">

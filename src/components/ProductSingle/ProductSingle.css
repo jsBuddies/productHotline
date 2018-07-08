@@ -8,6 +8,18 @@
       display: grid;
       grid-column-gap: 70px;
       grid-template-columns: 1fr 2fr; } }
+  .product-single__button {
+    background-color: #fe4f78;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 1.8rem;
+    margin-top: 1.75rem;
+    padding: 1.5rem 3rem;
+    transition: all 0.5s ease-in-out; }
+    .product-single__button:hover {
+      background-color: #ffcdd9;
+      color: black; }
   .product-single__details {
     font-size: 2rem; }
     .product-single__details__label {

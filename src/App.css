@@ -171,10 +171,17 @@ header {
   display: flex;
   justify-content: space-between;
   padding: 1rem 2rem; }
+  @media screen and (max-width: 750px) {
+    header {
+      flex-wrap: wrap;
+      justify-content: center; } }
   header .heading {
     margin: 0;
     padding-top: .5rem;
     width: 275px; }
+    @media screen and (max-width: 750px) {
+      header .heading {
+        margin: 0 auto; } }
     header .heading__link {
       color: white;
       text-decoration: none;
@@ -185,13 +192,41 @@ header {
 main {
   padding: 0 0 60px; }
 
-.utility-nav button {
-  border-bottom: 2px solid transparent;
-  color: #181b31;
-  font-weight: 700;
-  margin: 0 1.5rem;
-  transition: all 0.5s ease-in-out; }
-  .utility-nav button:hover {
-    border-bottom: 2px solid #60eacb; }
-  .utility-nav button:last-of-type {
-    margin-right: 0; }
+.utility-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; }
+  @media screen and (max-width: 750px) {
+    .utility-nav {
+      margin: 0 auto; } }
+  .utility-nav .cart-button {
+    position: relative;
+    transition: all 0.5s ease-in-out; }
+    .utility-nav .cart-button:hover .cart-button__items {
+      background: white;
+      color: #fe688b; }
+    .utility-nav .cart-button__items {
+      background: black;
+      border-radius: 50%;
+      color: white;
+      font-size: .7em;
+      margin-left: 2px;
+      padding: 3px 6px;
+      position: relative;
+      top: -10px;
+      transition: all 0.5s ease-in-out; }
+  .utility-nav button {
+    border-bottom: 2px solid transparent;
+    color: #181b31;
+    font-weight: 700;
+    margin: .5rem 1rem .5rem;
+    transition: all 0.5s ease-in-out; }
+    @media screen and (min-width: 500px) {
+      .utility-nav button {
+        margin: 0 1.5rem; } }
+    .utility-nav button:hover {
+      border-bottom: 2px solid #fe688b;
+      color: white; }
+    @media screen and (min-width: 750px) {
+      .utility-nav button:last-of-type {
+        margin-right: 0; } }

@@ -1,38 +1,31 @@
 import React from 'react';
+import classes from './ShoppingCart.css';
 
 class ShoppingCart extends React.Component{
   constructor(){
     super();
-
-    this.state = {
-      cartStatus: false
-    }
   }
   
-  cartClick = () => {
-    this.setState({
-      cartStatus: !this.state.cartStatus
-    })
-  }
-
   render() {
-    
     //maps over all the items
     const cartItems = this.props.totalCartArray.length !== 0 ? this.props.totalCartArray.map((item, index) => {
-      return <div key={index} className="cartItem" itemID={item.itemId} index={index}>
-          <p>{item.name}</p>
-          <p>${item.price}</p>
-          <button onClick={() => this.props.removeItemCallback(index)}>
+      const priceToFixed = parseInt(item.price).toFixed(2);
+      return <div key={index} className="cart__item" itemID={item.itemId} index={index}>
+          <p>
+            {item.name}
+          </p>
+          <p>${priceToFixed}</p>
+        <button className="cart__remove-button" onClick={() => this.props.removeItemCallback(index)}>
+          <span className="visually-hidden">
             Remove item
-          </button>
+              </span>
+          <i className="far fa-times-circle"></i>
+        </button>
         </div>;
-    }) : <p>No items in shopping cart</p>;
+    }) : <p className="cart__message">No items in shopping cart</p>;
 
     //display cart items only when cartStatus is true
-    const cartItemsDisplay = this.state.cartStatus ? cartItems : null;
-
-    //cartButton comp with item total
-    const cartButton = !this.state.cartStatus ? <button onClick={this.cartClick} >{`Items total: ${this.props.totalCartArray.length}`}</button> : <button onClick={this.cartClick} >Close Cart</button>;
+    const cartItemsDisplay = this.props.cartStatus ? cartItems : null;
 
     //changes all the strings to numbers before pushing to priceTotal arr for the sum of the total price
     let price =[];
@@ -42,14 +35,19 @@ class ShoppingCart extends React.Component{
     const priceTotal = price.reduce((a, b) => a + b, 0).toFixed(2);
 
     //displays the total price at the end of the cart Comp
-    const priceTotalDisplay = this.state.cartStatus ? <p>Total price: ${priceTotal}</p> : null;
+    const priceTotalDisplay = this.props.cartStatus && this.props.totalCartArray.length > 0 ? <p className="cart__total">
+        <span className="cart__total__label">Total price</span> 
+        <span className="cart__total__value">${priceTotal}</span>
+      </p> : null;
 
     return (
-      <React.Fragment>
-        {cartButton}
-        {cartItemsDisplay}
-        {priceTotalDisplay}
-      </React.Fragment>
+      <div className="cart">
+        <div className="wrapper">
+          <h2 className="cart__heading">Shopping Cart</h2>
+          {cartItemsDisplay}
+          {priceTotalDisplay}
+        </div>
+      </div>
     )
   }
 }
