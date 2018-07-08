@@ -114,7 +114,7 @@ class Form extends React.Component {
         </div>
         <div className="form__item">
           <label className="form__label" htmlFor="imageLink">Image</label>
-          <input className="form__input" type="file" name="imageLink" id="imageLink" accept="images/*" ref={this.imageLink} />
+          <input className="form__input" type="file" name="imageLink" id="imageLink" accept="images/*" required ref={this.imageLink} />
         </div>
         <div className="form__buttons">
             <a className="form__button form__button--secondary" onClick={this.props.adminPage}><i className="fas fa-minus-circle"></i> Hide form</a>
