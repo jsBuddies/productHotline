@@ -237,7 +237,12 @@ class App extends Component {
     const demoStatus = this.state.demoStatus;
     this.setState({
       demoStatus: !demoStatus
+    }, () => {
+      if (this.state.demoStatus === false) {
+        this.closeEditForm();
+      }
     })
+    
   }
 
   render() {
@@ -286,11 +291,12 @@ class App extends Component {
                   )}
                 />
               )}
-              <LoginButton
+              {this.state.demoStatus === false ? (<LoginButton
                 loggedIn={this.state.loggedIn}
                 loginWithGoogle={this.loginWithGoogle}
                 logout={this.logout}
-              />
+              />) : null}
+              
               {(this.state.currentUserRole !== "admin" && this.state.demoStatus === false) && (
                 <CartButton
                   cartClick={this.cartClick}
