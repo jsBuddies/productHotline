@@ -22,13 +22,14 @@ class App extends Component {
     super();
 
     this.state = {
-      adminButtonText: 'Add inventory',
+      adminButtonText: "Add inventory",
       adminFormVisible: false,
-      currentUser: '',
-      currentUserId: '',
-      currentUserRole: '',
+      currentUser: "",
+      currentUserId: "",
+      currentUserRole: "",
+      demoStatus: false,
       editFormVisible: false,
-      keyToEdit: '',
+      keyToEdit: "",
       loggedIn: false,
       products: {},
       cart: [],
@@ -42,19 +43,22 @@ class App extends Component {
     this.editItem = this.editItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.cartClick = this.cartClick.bind(this);
+    this.setDemo = this.setDemo.bind(this);
   }
-
 
   componentDidMount() {
     this.usersDbRef = firebase.database().ref("users");
-    this.productsDbRef = firebase.database().ref('products').orderByKey();
+    this.productsDbRef = firebase
+      .database()
+      .ref("products")
+      .orderByKey();
 
     this.productsDbRef.on("value", snapshot => {
       const savedProducts = snapshot.val();
       this.setState({
         products: savedProducts
-      })
-    })
+      });
+    });
 
     firebase.auth().onAuthStateChanged(user => {
       if (user !== null) {
@@ -76,7 +80,7 @@ class App extends Component {
             let loggedInUser = {
               userId: user.uid,
               userName: user.displayName,
-              userRole: 'consumer'
+              userRole: "consumer"
             };
             this.setState({
               loggedIn: true,
@@ -92,8 +96,8 @@ class App extends Component {
         this.setState({
           loggedIn: false,
           currentUser: null,
-          currentUserId: '',
-          currentUserRole: ''
+          currentUserId: "",
+          currentUserRole: ""
         });
       }
     });
@@ -101,7 +105,8 @@ class App extends Component {
 
   adminPage = () => {
     const visible = this.state.adminFormVisible === false ? true : false;
-    const buttonText = this.state.adminFormVisible === false ? 'Hide form' : 'Add inventory';
+    const buttonText =
+      this.state.adminFormVisible === false ? "Hide form" : "Add inventory";
     this.setState({
       editFormVisible: false,
       adminFormVisible: visible,
@@ -112,14 +117,14 @@ class App extends Component {
   cartClick = () => {
     this.setState({
       cartStatus: !this.state.cartStatus
-    })
-  }
+    });
+  };
 
   closeEditForm(e) {
     this.setState({
       editFormVisible: false,
-      keyToEdit: ''
-    })
+      keyToEdit: ""
+    });
   }
 
   editItem(keyToEdit) {
@@ -128,15 +133,15 @@ class App extends Component {
       adminFormVisible: false,
       editFormVisible: true,
       keyToEdit
-    })
+    });
   }
 
   loadTestProducts = () => {
-    Object.keys(testProducts).map((key) => {
+    Object.keys(testProducts).map(key => {
       let dbRef = firebase.database().ref(`products/${key}`);
       dbRef.set(testProducts[key]);
-    })
-  }
+    });
+  };
 
   loginWithGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -149,105 +154,214 @@ class App extends Component {
       .catch(err => {
         console.log(err);
       });
-      this.setState({
-        cartStatus: false
-      });
+    this.setState({
+      cartStatus: false
+    });
   }
 
   notAuthorized = () => {
-    alert('Your Google account is not authorized. Please contact website administrator for permission.');
-  }
+    alert(
+      "Your Google account is not authorized. Please contact website administrator for permission."
+    );
+  };
 
   logout() {
     firebase.auth().signOut();
   }
 
   removeItem(keyToRemove) {
-    console.log(keyToRemove);
-    firebase
-      .database()
-      .ref(`products/${keyToRemove}`)
-      .remove();
+    if (this.state.currentUserRole === 'admin') {
+      firebase
+        .database()
+        .ref(`products/${keyToRemove}`)
+        .remove();
+    }
+    else if (this.state.demoStatus) {
+      // take copy of current products from state
+      const products = Array.from(this.state.products);
+      // use key to remove item
+      delete products[keyToRemove];
+      this.setState({
+        products
+      })
+    } 
   }
 
   //callback function for ProductSingle Comp
   setCartCallback = (item, itemId) => {
-
-    item['itemId'] = itemId;
+    item["itemId"] = itemId;
     this.setState({
       totalCartArray: [...this.state.totalCartArray, item]
-    })
-
-  }
+    });
+  };
 
   //callback function for ProductGrid Comp
-  setCartProductGridCallBack = (index) => {
+  setCartProductGridCallBack = index => {
     let cartProductGridClone = [...this.state.cartProductGrid];
 
     //add another value to the object of itemId
     const selectedItem = this.state.products[index];
-    selectedItem['itemId'] = index;
+    selectedItem["itemId"] = index;
 
     this.setState({
       totalCartArray: [...this.state.totalCartArray, selectedItem]
-    })
-  }
+    });
+  };
+
 
   //callback to remove item in shopping cart
-  removeItemCallback = (index) => {
+  removeItemCallback = index => {
     const totalCartArrayClone = [...this.state.totalCartArray];
     totalCartArrayClone.splice(index, 1);
     console.log(totalCartArrayClone);
     this.setState({
       totalCartArray: totalCartArrayClone
+    });
+  };
+
+  callBackFromForm = (product, productKey) => {
+    // get current products stored in state; save copy
+    const storedProducts = this.state.products;
+    if (this.state.currentUserRole === 'admin') {
+      let dbRef = firebase.database().ref(`products/${productKey}`);
+      dbRef.set(product);
+    } else {
+      storedProducts[productKey] = product;
+      this.setState({
+        products: storedProducts
+      })
+    } 
+  }
+
+  setDemo() {
+    const demoStatus = this.state.demoStatus;
+    this.setState({
+      demoStatus: !demoStatus
     })
   }
 
   render() {
-    const shoppingCart = this.state.loggedIn === false ? 
-      <ShoppingCart 
-        cartArray={this.state.cart} 
-        cartProductGridArray={this.state.cartProductGrid} 
-        removeItemCallback={this.removeItemCallback} 
-        totalCartArray={this.state.totalCartArray}
-        /> : null;
+    const shoppingCart =
+      this.state.loggedIn === false ? (
+        <ShoppingCart
+          cartArray={this.state.cart}
+          cartProductGridArray={this.state.cartProductGrid}
+          removeItemCallback={this.removeItemCallback}
+          totalCartArray={this.state.totalCartArray}
+        />
+      ) : null;
+
+      const demoButtonText = this.state.demoStatus ? 'Exit admin mode' : 'Demo admin mode';
+
+
+    return (
     
+      <Router>
+        <div className="app">
+          <header>
+            <SiteHeadline />
+            <div className="utility-nav">
+              {this.state.currentUserRole !== "admin" && (
+                <button onClick={this.setDemo}>{demoButtonText}</button>
+              )}
+              {(this.state.currentUserRole === "admin" || this.state.demoStatus) && (
+                  <Route
+                    path="/"
+                    exact
+                    render={() => (
+                      <button onClick={this.adminPage}>
+                        {this.state.adminButtonText}
+                      </button>
+                    )}
+                  />
+                )}
+              {(this.state.currentUserRole === "admin") && (
+                <Route
+                  path="/"
+                  exact
+                  render={() => (
+                    <button onClick={this.loadTestProducts}>
+                      Load sample products
+                    </button>
+                  )}
+                />
+              )}
+              <LoginButton
+                loggedIn={this.state.loggedIn}
+                loginWithGoogle={this.loginWithGoogle}
+                logout={this.logout}
+              />
+              {(this.state.currentUserRole !== "admin" && this.state.demoStatus === false) && (
+                <CartButton
+                  cartClick={this.cartClick}
+                  totalCartArray={this.state.totalCartArray}
+                  cartStatus={this.state.cartStatus}
+                />
+              )}
+            </div>
+          </header>
 
-    return <Router>
-      <div className="app">
-        <header>
-        <SiteHeadline />
-        <div className="utility-nav">
-          {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.adminPage}>{this.state.adminButtonText}</button>} />}
-            {this.state.currentUserRole === 'admin' && <Route path="/" exact render={() => <button onClick={this.loadTestProducts}>Load sample products</button>} />}
-          <LoginButton loggedIn={this.state.loggedIn} loginWithGoogle={this.loginWithGoogle} logout={this.logout} />
-          {this.state.currentUserRole !== 'admin' && <CartButton cartClick={this.cartClick} totalCartArray={this.state.totalCartArray} cartStatus={this.state.cartStatus} />}
+          <main>
+            {this.state.cartStatus === true && (
+              <ShoppingCart
+                cartStatus={this.state.cartStatus}
+                totalCartArray={this.state.totalCartArray}
+                removeItemCallback={this.removeItemCallback}
+              />
+            )}
+            {this.state.adminFormVisible === true && (
+              <Route
+                path="/"
+                exact
+                render={() => <Form adminPage={this.adminPage} callBackFromForm={this.callBackFromForm} />}
+              />
+            )}
+            {this.state.editFormVisible === true && (
+              <Route
+                path="/"
+                exact
+                render={() => (
+                  <EditForm
+                    keyToEdit={this.state.keyToEdit}
+                    closeEditForm={this.closeEditForm}
+                  />
+                )}
+              />
+            )}
+            <div className="wrapper">
+              <Route
+                path="/"
+                exact
+                render={() => (
+                  <ProductGrid
+                    demoStatus={this.state.demoStatus}
+                    products={this.state.products}
+                    currentUserRole={this.state.currentUserRole}
+                    removeItem={this.removeItem}
+                    editItem={this.editItem}
+                    loggedIn={this.state.loggedIn}
+                    setCartProductGridCallBack={this.setCartProductGridCallBack}
+                  />
+                )}
+              />
+              <Route
+                path="/products/:productId"
+                render={props => (
+                  <ProductSingle
+                    {...this.props}
+                    {...props}
+                    loggedIn={this.state.loggedIn}
+                    setCartCallback={this.setCartCallback}
+                  />
+                )}
+              />
+            </div>
+          </main>
+          <Footer />
         </div>
-        </header>
-
-
-        <main>
-          {this.state.cartStatus === true && <ShoppingCart cartStatus={this.state.cartStatus} totalCartArray={this.state.totalCartArray} removeItemCallback={this.removeItemCallback} />}
-          {this.state.adminFormVisible === true && <Route path="/" exact render={() => <Form adminPage={this.adminPage} />} />}
-          {this.state.editFormVisible === true && <Route path="/" exact render={() => <EditForm keyToEdit={this.state.keyToEdit} closeEditForm={this.closeEditForm} />} />}
-          <div className="wrapper">
-          <Route path="/" exact render={() => 
-            <ProductGrid 
-              products={this.state.products} 
-              currentUserRole={this.state.currentUserRole} 
-              removeItem={this.removeItem} 
-              editItem={this.editItem} 
-              loggedIn={this.state.loggedIn}
-              setCartProductGridCallBack={this.setCartProductGridCallBack} />} />
-            <Route path="/products/:productId" render={props => <ProductSingle {...this.props} {...props} loggedIn={this.state.loggedIn} setCartCallback={this.setCartCallback} />} />
-          </div>
-        </main>
-        <Footer />
-      </div>
-    </Router>;
-
+      </Router>
+    );
   }
-
 }
 
 export default App;
