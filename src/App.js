@@ -178,7 +178,7 @@ class App extends Component {
     }
     else if (this.state.demoStatus) {
       // take copy of current products from state
-      const products = Array.from(this.state.products);
+      const products = Object.assign({}, this.state.products);
       // use key to remove item
       delete products[keyToRemove];
       this.setState({
