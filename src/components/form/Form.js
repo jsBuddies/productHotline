@@ -59,8 +59,7 @@ class Form extends React.Component {
             weight: this.state.weight
           }
           const productName = Date.now();
-          let dbRef = firebase.database().ref(`products/${productName}`);
-          dbRef.set(product);
+          this.props.callBackFromForm(product, productName);
           this.setState({
             battery: '',
             brand: '',
@@ -75,6 +74,7 @@ class Form extends React.Component {
         document.querySelector('#imageLink').value = null;
       })
       .catch(console.error);
+      
 
   }
 

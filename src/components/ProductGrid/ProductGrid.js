@@ -14,7 +14,7 @@ class ProductGrid extends React.Component {
     }
     
     render() {
-        const addToCartBtn = this.props.loggedIn === false ? <div className="product__buttons">
+        const addToCartBtn = (this.props.loggedIn === false && this.props.demoStatus === false) ? <div className="product__buttons">
               <button className="product__button" onClick={this.addToCart}>
                 <i className="fas fa-cart-plus" /> Add to Cart
               </button>
@@ -40,7 +40,7 @@ class ProductGrid extends React.Component {
                                     </span>
                                     {this.props.products[key].price}
                                 </p>
-                                {this.props.currentUserRole === "admin" && <div className="product__buttons">
+                                {(this.props.currentUserRole === "admin" || this.props.demoStatus) && <div className="product__buttons">
                                     <button className="product__button" onClick={() => this.props.removeItem(key)}>
                                         <i className="far fa-times-circle" /> Remove
                                     </button>
