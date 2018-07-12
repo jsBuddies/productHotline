@@ -9,7 +9,7 @@ class ShoppingCart extends React.Component{
   render() {
     //maps over all the items
     const cartItems = this.props.totalCartArray.length !== 0 ? this.props.totalCartArray.map((item, index) => {
-      const priceToFixed = parseInt(item.price).toFixed(2);
+      const priceToFixed = parseFloat(item.price).toFixed(2);
       return <div key={index} className="cart__item" itemID={item.itemId} index={index}>
           <p>
             {item.name}
